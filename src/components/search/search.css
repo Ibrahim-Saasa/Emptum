@@ -1,0 +1,10 @@
+.searchBox input::placeholder,
+.searchBox input::-moz-placeholder,
+.searchBox input::-webkit-input-placeholder {
+  color: black;
+  margin-left: 15px;
+}
+
+.searchBox input {
+  margin-left: 15px;
+}
