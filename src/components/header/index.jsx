@@ -9,6 +9,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoIosGitCompare } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa6";
 import Tooltip from "@mui/material/Tooltip";
+import Navigation from "./navigation";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -22,7 +23,7 @@ const Header = () => {
   return (
     <header>
       <div className="top-strip py-2 border-t-[1px] border-green-200 border-b-[1px]">
-        <div className="container h-[40px]">
+        <div className="container !p-[10px]">
           <div className="flex items-center justify-between">
             <div className="col1 w-[75%]  ">
               <p className="text-[14px]">
@@ -54,17 +55,21 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="header ">
+      <div className="header py-4 border-b-[1px] border-green-200">
         <div className="container flex items-center justify-between">
           <div className="col1 w-[25%]">
             <Link to={"/"}>
-              <img src="../src/assets/logo.png" className="w-[100px]" />
+              <img
+                src="../src/assets/gpt.png
+              "
+                className="w-[100px]"
+              />
             </Link>
           </div>
           <div className="col2 w-[45%]">
             <Search />
           </div>
-          <div className="!pl-7 col3 w-[30%] flex items-center ">
+          <div className="col3 w-[30%] flex items-center !pl-7 ">
             <ul className="flex items-center justify-end gap-3 w-full">
               <li className="list-none">
                 <Link
@@ -113,6 +118,8 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      <Navigation></Navigation>
     </header>
   );
 };

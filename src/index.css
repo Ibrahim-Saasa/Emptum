@@ -13,10 +13,11 @@ body {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
+  background-color: rgb(158, 196, 158);
 }
 
 .container {
-  width: 90%;
+  width: 95%;
   margin: auto;
 }
 
@@ -29,4 +30,26 @@ body {
 }
 .icon:hover {
   color: #0c8563;
+}
+
+header {
+  background-color: lavenderblush;
+}
+.col-2 {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  flex-wrap: wrap; /* Prevent overflow on smaller screens */
+  /* background-color: #ffb800; */
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+nav button {
+  text-transform: capitalize !important;
+  color: #000 !important;
+}
+nav button:hover {
+  text-transform: capitalize !important;
+  color: #0c8563 !important;
 }
