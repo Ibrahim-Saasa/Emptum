@@ -52,3 +52,11 @@ nav button:hover {
   text-transform: capitalize !important;
   color: #0c8563 !important;
 }
+
+.scroll ul li Button {
+  color: #000 !important;
+  text-transform: none;
+}
+.scroll ul li Button:hover {
+  color: #0c8563 !important;
+}
