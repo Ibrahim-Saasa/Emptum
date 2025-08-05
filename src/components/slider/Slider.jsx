@@ -11,6 +11,7 @@ import banner5 from "../../assets/banner-5.png";
 import { Pagination } from "swiper/modules";
 import "swiper/css/pagination";
 import { Autoplay } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 const Slider = () => {
   return (
@@ -33,19 +34,29 @@ const Slider = () => {
           className="mySwiper ban-slide"
         >
           <SwiperSlide>
-            <img src={banner1} alt="banner slide" className="banner" />
+            <Link to="/">
+              <img src={banner1} alt="banner slide" className="banner" />
+            </Link>
           </SwiperSlide>
           <SwiperSlide>
-            <img src={banner2} alt="banner slide" className="banner" />
+            <Link to="/">
+              <img src={banner2} alt="banner slide" className="banner" />
+            </Link>
           </SwiperSlide>
           <SwiperSlide>
-            <img src={banner3} alt="banner slide" className="banner" />
+            <Link to="/">
+              <img src={banner3} alt="banner slide" className="banner" />
+            </Link>
           </SwiperSlide>
           <SwiperSlide>
-            <img src={banner4} alt="banner slide" className="banner" />
+            <Link to="/">
+              <img src={banner4} alt="banner slide" className="banner" />
+            </Link>
           </SwiperSlide>
           <SwiperSlide>
-            <img src={banner5} alt="banner slide" className="banner" />
+            <Link to="/">
+              <img src={banner5} alt="banner slide" className="banner" />
+            </Link>
           </SwiperSlide>
         </Swiper>
       </div>
