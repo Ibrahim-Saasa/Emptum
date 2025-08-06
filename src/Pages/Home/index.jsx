@@ -62,7 +62,7 @@ const Home = () => {
             </div>
           </div>
 
-          <ProductSlider />
+          <ProductSlider products={[{}, {}, {}, {}, {}, {}]} />
         </div>
       </section>
 

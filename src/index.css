@@ -7,6 +7,8 @@
   margin: 0px;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #4caf50 #f1f1f1;
 }
 
 body {
@@ -15,6 +17,25 @@ body {
   font-style: normal;
   background-color: #9ec49e;
   overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 18px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4caf50;
+  border-radius: 10px;
+  border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #45a049;
 }
 
 .container {

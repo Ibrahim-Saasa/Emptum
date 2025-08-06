@@ -5,41 +5,25 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
 import ProductItem from "../ProductItem/ProductItem";
+import "../ProductItem/product.css";
 
 const ProductSlider = (props) => {
+  const products = props.products || [];
   return (
     <div className="productSlider">
       <Swiper
-        slidesPerView={props.items}
-        spaceBetween={30}
+        slidesPerView={5}
+        spaceBetween={10}
         navigation={true}
+        loop={false}
         modules={[Navigation]}
-        className="mySwiper"
+        className="mySwiper products"
       >
-        <SwiperSlide>
-          <ProductItem />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProductItem />
-        </SwiperSlide>{" "}
-        <SwiperSlide>
-          <ProductItem />
-        </SwiperSlide>{" "}
-        <SwiperSlide>
-          <ProductItem />
-        </SwiperSlide>{" "}
-        <SwiperSlide>
-          <ProductItem />
-        </SwiperSlide>{" "}
-        <SwiperSlide>
-          <ProductItem />
-        </SwiperSlide>{" "}
-        <SwiperSlide>
-          <ProductItem />
-        </SwiperSlide>{" "}
-        <SwiperSlide>
-          <ProductItem />
-        </SwiperSlide>
+        {products.map((product, index) => (
+          <SwiperSlide className="swiperSlide" key={index}>
+            <ProductItem />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
