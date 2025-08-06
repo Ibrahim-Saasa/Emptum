@@ -17,7 +17,28 @@ const ProductSlider = (props) => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <ProductItem></ProductItem>
+          <ProductItem />
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProductItem />
+        </SwiperSlide>{" "}
+        <SwiperSlide>
+          <ProductItem />
+        </SwiperSlide>{" "}
+        <SwiperSlide>
+          <ProductItem />
+        </SwiperSlide>{" "}
+        <SwiperSlide>
+          <ProductItem />
+        </SwiperSlide>{" "}
+        <SwiperSlide>
+          <ProductItem />
+        </SwiperSlide>{" "}
+        <SwiperSlide>
+          <ProductItem />
+        </SwiperSlide>{" "}
+        <SwiperSlide>
+          <ProductItem />
         </SwiperSlide>
       </Swiper>
     </div>

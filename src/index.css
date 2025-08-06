@@ -224,12 +224,3 @@ nav button:hover {
 .MuiTab-textColorPrimary.Mui-selected {
   color: #0c8563 !important;
 }
-.productItem {
-  border-top: 1px solid black !important;
-  margin-top: 15px;
-}
-.productImage {
-  /* width: 100%; */
-  height: 200px;
-  margin-top: 15px;
-}
