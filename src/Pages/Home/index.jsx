@@ -2,8 +2,18 @@ import React from "react";
 import Slider from "../../components/slider/slider";
 import CatSlider from "../../components/CatSlider/CatSlider";
 import AdsBanner from "../../components/AdsBanner/AdsBanner";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import ProductSlider from "../../components/ProductSlider/ProductSlider";
 
 const Home = () => {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <>
       <Slider />
@@ -13,10 +23,46 @@ const Home = () => {
         <div className="container-fluid">
           <div className="flex items-center justify-between">
             <div className="leftSec">
-              <h3 className="text-[30px] font-600">Popular Products</h3>
-              <p>Snatch these offers as fast as you can</p>
+              <h3 className="text-[20px] font-[600]">Popular Products</h3>
+              <p className="text-[14px] font-[400]">
+                Snatch these offers as fast as you can
+              </p>
+            </div>
+
+            <div className="rightSec !w-[80%] border-l border-black-300 pl-4">
+              <Box
+                sx={{
+                  width: "100%",
+                  overflowX: "auto",
+                }}
+              >
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  variant="scrollable"
+                  scrollButtons="auto"
+                  aria-label="scrollable auto tabs example"
+                >
+                  <Tab label="Electronics" />
+                  <Tab label="Shirts" />
+                  <Tab label="Rings" />
+                  <Tab label="Necklaces" />
+                  <Tab label="Pants" />
+                  <Tab label="Jeans" />
+                  <Tab label="Loafers" />
+                  <Tab label="Sneakers" />
+                  <Tab label="Tables" />
+                  <Tab label="Chairs" />
+                  <Tab label="Desks" />
+                  <Tab label="Controller" />
+                  <Tab label="Keyboard" />
+                  <Tab label="Stationary" />
+                </Tabs>
+              </Box>
             </div>
           </div>
+
+          <ProductSlider />
         </div>
       </section>
 
