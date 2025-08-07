@@ -6,6 +6,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import ProductSlider from "../../components/ProductSlider/ProductSlider";
+// import "../../components/ProductItem/product.css";
+import adBanner from "../../assets/ad-banner.webp";
+import AdsDivider from "../../components/AdsBanner/AdsDivider";
 
 const Home = () => {
   const [value, setValue] = React.useState(0);
@@ -69,6 +72,27 @@ const Home = () => {
       <section className="ads !py-5 !mt-6">
         <div className="container">
           <AdsBanner items={4} />
+        </div>
+      </section>
+
+      <section className="ads !py-5 !pt-0">
+        <div className="container">
+          <h3 className="text-[20px] font-[600] !ml-7">Latest Products</h3>
+
+          <ProductSlider products={[{}, {}, {}, {}, {}, {}]} />
+        </div>
+      </section>
+
+      <section className="!py-5 w-full">
+        <img src={adBanner} alt="AD-BANNER" />
+      </section>
+
+      <section className="ads !py-5">
+        <div className="container">
+          <h3 className="text-[20px] font-[600] !ml-7">Featured Products</h3>
+
+          <ProductSlider products={[{}, {}, {}, {}, {}, {}]} />
+          <AdsDivider />
         </div>
       </section>
     </>

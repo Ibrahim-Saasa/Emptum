@@ -13,11 +13,14 @@ const ProductItem = () => {
     <div className="productItem  overflow-hidden">
       <div className="group imgWrapper overflow-hidden relative">
         <Link to="/">
-          <img
-            src="https://m.media-amazon.com/images/I/41BO9xuN4+L._MCnd_AC_.jpg"
-            alt="productImage"
-            className="productImage w-full"
-          />
+          <div className="img">
+            <img
+              src="https://m.media-amazon.com/images/I/41BO9xuN4+L._MCnd_AC_.jpg"
+              alt="productImage"
+              className="productImage w-full"
+            />
+          </div>
+
           <span className="discount flex items-center absolute top-[10px] left-[10px] z-50 text-white bg-[#0c8563] rounded-md !p-2 text-[12px] font-500">
             -41%
           </span>
