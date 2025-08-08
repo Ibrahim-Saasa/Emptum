@@ -15,7 +15,7 @@ const Navigation = () => {
 
   return (
     <>
-      <nav className="!py-2">
+      <nav className="">
         <div className="container flex items-center justify-between gap-8 px-6">
           <div className="col-1 w-[20%]">
             <Button
@@ -41,7 +41,7 @@ const Navigation = () => {
               </li>
               <li className="list-none relative">
                 <Link to="/" className="link transition text-[14px] font-[400]">
-                  <Button className="!link transition">Fashion</Button>
+                  <Button className="!link transition ">Fashion</Button>
                 </Link>
                 <div className="submenu absolute top-[100%] left-[0%] min-w-[200px] bg-white shadow-md opacity-0">
                   <ul>

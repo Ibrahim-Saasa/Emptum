@@ -10,29 +10,36 @@ import { useState } from "react";
 import { FaRegSquareMinus } from "react-icons/fa6";
 
 const SideBar = ({ open, toggleDrawer }) => {
-  // const [open, setOpen] = useState(false);
-
-  // const toggleDrawer = (newOpen) => () => {
-  //   setOpen(newOpen);
-  //   props.setIsOpenSideBar(newOpen);
-  // };
-
   const [submenuIndex, setSubmenuIndex] = useState(null);
   const [innerSubmenuIndex, setInnerSubmenuIndex] = useState(null);
 
+  // const openSubmenu = (index) => {
+  //   if (submenuIndex === index) {
+  //     setSubmenuIndex(null);
+  //   } else {
+  //     setSubmenuIndex(index);
+  //   }
+  // };
+  // const openInnerSubmenu = (index) => {
+  //   if (innerSubmenuIndex === index) {
+  //     setInnerSubmenuIndex(null);
+  //   } else {
+  //     setInnerSubmenuIndex(index);
+  //   }
   const openSubmenu = (index) => {
-    if (submenuIndex === index) {
-      setSubmenuIndex(null);
-    } else {
-      setSubmenuIndex(index);
-    }
+    setSubmenuIndex((prev) => {
+      const next = prev === index ? null : index;
+      console.log("toggle submenu:", { index, prev, next });
+      return next;
+    });
   };
+
   const openInnerSubmenu = (index) => {
-    if (innerSubmenuIndex === index) {
-      setInnerSubmenuIndex(null);
-    } else {
-      setInnerSubmenuIndex(index);
-    }
+    setInnerSubmenuIndex((prev) => {
+      const next = prev === index ? null : index;
+      console.log("toggle inner submenu:", { index, prev, next });
+      return next;
+    });
   };
   const DrawerList = (
     <Box
@@ -51,7 +58,10 @@ const SideBar = ({ open, toggleDrawer }) => {
       </h2>{" "}
       <Divider className="divider" />
       <div className="scroll">
-        <ul className="w-full">
+        <ul
+        // className="w-full"
+        // className={`submenu ${submenuIndex === index ? "active" : ""}`}
+        >
           <li className="list-none flex items-center relative flex-col">
             <Link to="/" className="w-full">
               <Button className="w-full !justify-start !text-left">
@@ -60,13 +70,19 @@ const SideBar = ({ open, toggleDrawer }) => {
             </Link>
             {submenuIndex === 0 ? (
               <FaRegSquareMinus
-                className="absolute top-[10px] right-[15px] cursor-pointer"
-                onClick={() => openSubmenu(0)}
+                className="absolute top-[10px] right-[15px] cursor-pointer z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openSubmenu(0);
+                }}
               />
             ) : (
               <FaRegPlusSquare
-                className="absolute top-[10px] right-[15px] cursor-pointer"
-                onClick={() => openSubmenu(0)}
+                className="absolute top-[10px] right-[15px] cursor-pointer z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openSubmenu(0);
+                }}
               />
             )}
 
@@ -81,13 +97,19 @@ const SideBar = ({ open, toggleDrawer }) => {
                   </Link>
                   {innerSubmenuIndex === 0 ? (
                     <FaRegSquareMinus
-                      className="absolute top-[10px] right-[15px] cursor-pointer"
-                      onClick={() => openInnerSubmenu(0)}
+                      className="absolute top-[10px] right-[15px] cursor-pointer z-10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openInnerSubmenu(0);
+                      }}
                     />
                   ) : (
                     <FaRegPlusSquare
-                      className="absolute top-[10px] right-[15px] cursor-pointer"
-                      onClick={() => openInnerSubmenu(0)}
+                      className="absolute top-[10px] right-[15px] cursor-pointer z-10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openInnerSubmenu(0);
+                      }}
                     />
                   )}
                   {innerSubmenuIndex === 0 && (
@@ -156,13 +178,19 @@ const SideBar = ({ open, toggleDrawer }) => {
             </Link>
             {submenuIndex === 1 ? (
               <FaRegSquareMinus
-                className="absolute top-[10px] right-[15px] cursor-pointer"
-                onClick={() => openSubmenu(1)}
+                className="absolute top-[10px] right-[15px] cursor-pointer z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openSubmenu(1);
+                }}
               />
             ) : (
               <FaRegPlusSquare
-                className="absolute top-[10px] right-[15px] cursor-pointer"
-                onClick={() => openSubmenu(1)}
+                className="absolute top-[10px] right-[15px] cursor-pointer z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openSubmenu(1);
+                }}
               />
             )}
 
@@ -178,12 +206,18 @@ const SideBar = ({ open, toggleDrawer }) => {
                   {innerSubmenuIndex === 1 ? (
                     <FaRegSquareMinus
                       className="absolute top-[10px] right-[15px] cursor-pointer"
-                      onClick={() => openInnerSubmenu(1)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openInnerSubmenu(1);
+                      }}
                     />
                   ) : (
                     <FaRegPlusSquare
                       className="absolute top-[10px] right-[15px] cursor-pointer"
-                      onClick={() => openInnerSubmenu(1)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openInnerSubmenu(1);
+                      }}
                     />
                   )}
                   {innerSubmenuIndex === 1 && (

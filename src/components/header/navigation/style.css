@@ -1,6 +1,6 @@
-.sidebar .submenu {
+/* .sidebar .submenu {
   display: none;
-}
+} */
 .nav li .submenu {
   visibility: hidden;
   transition: all;
@@ -20,3 +20,16 @@
   left: 100% !important;
   opacity: 1 !important;
 }
+/* .submenu {
+  opacity: 0;
+  visibility: hidden;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.submenu.active {
+  opacity: 1;
+  visibility: visible;
+  max-height: 500px;
+} */

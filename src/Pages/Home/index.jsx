@@ -9,6 +9,12 @@ import ProductSlider from "../../components/ProductSlider/ProductSlider";
 // import "../../components/ProductItem/product.css";
 import adBanner from "../../assets/ad-banner.webp";
 import AdsDivider from "../../components/AdsBanner/AdsDivider";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Blog from "../../components/Blog/Blog";
 
 const Home = () => {
   const [value, setValue] = React.useState(0);
@@ -87,12 +93,43 @@ const Home = () => {
         <img src={adBanner} alt="AD-BANNER" />
       </section>
 
-      <section className="ads !py-5">
+      <section className="ads !py-5 shadow-lg">
         <div className="container">
           <h3 className="text-[20px] font-[600] !ml-7">Featured Products</h3>
 
           <ProductSlider products={[{}, {}, {}, {}, {}, {}]} />
           <AdsDivider />
+        </div>
+      </section>
+
+      <section className="!py-5 blogSection">
+        <div className="blog container">
+          <h3 className="text-[20px] font-[600] !mb-4">Check Out our Blog</h3>
+
+          <Swiper
+            slidesPerView={4}
+            spaceBetween={10}
+            navigation={true}
+            loop={false}
+            modules={[Navigation]}
+            className="blogSlider"
+          >
+            <SwiperSlide>
+              <Blog />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Blog />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Blog />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Blog />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Blog />
+            </SwiperSlide>
+          </Swiper>
         </div>
       </section>
     </>
