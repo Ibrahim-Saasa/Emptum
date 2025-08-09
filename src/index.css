@@ -270,3 +270,14 @@ nav button:hover {
 .ad-div img:hover {
   transform: scale(1.03);
 }
+.form-btn {
+  background-color: #0c8563 !important;
+  color: #fff0f5 !important;
+  margin-top: 5px !important;
+  font-weight: 500 !important;
+}
+.form-btn:hover {
+  background-color: #fff0f5 !important;
+  color: #0c8563 !important;
+  margin-top: 5px !important;
+}

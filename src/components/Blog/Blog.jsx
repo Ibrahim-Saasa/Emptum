@@ -18,7 +18,7 @@ const Blog = () => {
       </div>
 
       <div className="info !py-5">
-        <h2 className="text-[16px] font-[600] text-black">
+        <h2 className="text-[15px] font-[600] text-black">
           <Link to="/" className="link">
             What style suits best for your home? Check these predefined homes to
             your taste!

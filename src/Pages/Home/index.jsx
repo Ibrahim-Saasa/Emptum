@@ -15,6 +15,7 @@ import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Blog from "../../components/Blog/Blog";
+import Footer from "../../components/Footer/Footer";
 
 const Home = () => {
   const [value, setValue] = React.useState(0);
@@ -75,13 +76,13 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="ads !py-5 !mt-6">
+      <section className="!py-5 !mt-6">
         <div className="container">
           <AdsBanner items={4} />
         </div>
       </section>
 
-      <section className="ads !py-5 !pt-0">
+      <section className="ads !py-5 shadow-[0_0_15px_rgba(0,0,0,0.3)]">
         <div className="container">
           <h3 className="text-[20px] font-[600] !ml-7">Latest Products</h3>
 
@@ -89,7 +90,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="!py-5 w-full">
+      <section className="!py-5 w-full cursor-pointer">
         <img src={adBanner} alt="AD-BANNER" />
       </section>
 
@@ -108,7 +109,7 @@ const Home = () => {
 
           <Swiper
             slidesPerView={4}
-            spaceBetween={10}
+            spaceBetween={30}
             navigation={true}
             loop={false}
             modules={[Navigation]}
@@ -132,6 +133,8 @@ const Home = () => {
           </Swiper>
         </div>
       </section>
+
+      <Footer className="ads" />
     </>
   );
 };
