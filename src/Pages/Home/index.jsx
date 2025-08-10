@@ -16,6 +16,8 @@ import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Blog from "../../components/Blog/Blog";
 import Footer from "../../components/Footer/Footer";
+import HomeSlider from "../../components/HomeSlider/HomeSlider";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [value, setValue] = React.useState(0);
@@ -27,6 +29,7 @@ const Home = () => {
   return (
     <>
       <Slider />
+
       <CatSlider />
 
       <section className="py-8">
@@ -76,7 +79,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="!py-5 !mt-6">
+      <section className="!py-5 ">
         <div className="container">
           <AdsBanner items={4} />
         </div>
@@ -90,9 +93,30 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="!py-5 w-full cursor-pointer">
-        <img src={adBanner} alt="AD-BANNER" />
+      <section className="!py-5">
+        <div className="container flex items-center w-[50%]">
+          <div className="w-[75%] ">
+            <HomeSlider />
+          </div>
+          <div className="w-1/4 flex flex-col gap-2 items-center justify-center">
+            <img
+              src="https://template.canva.com/EAF2o13Ho50/1/0/1600w-8LmOJMV9oMg.jpg"
+              alt="Ad 1"
+              className="w-[75%] aspect-square object-cover rounded-md cursor-pointer"
+            />
+
+            <img
+              src="https://template.canva.com/EAF6-rLFKNE/2/0/1600w-sCIb6l3LvFk.jpg "
+              alt="Ad 2"
+              className="w-[75%] aspect-square object-cover rounded-md cursor-pointer"
+            />
+          </div>
+        </div>
       </section>
+
+      {/* <section className="!py-5 w-full cursor-pointer">
+        <img src={adBanner} alt="AD-BANNER" />
+      </section> */}
 
       <section className="ads !py-5 shadow-lg">
         <div className="container">

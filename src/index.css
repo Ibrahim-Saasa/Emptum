@@ -281,3 +281,12 @@ nav button:hover {
   color: #0c8563 !important;
   margin-top: 5px !important;
 }
+.swiper-pagination-bullet-active {
+  background: #0c8563 !important;
+  margin-top: 15px !important;
+}
+.homeSliderV2 .itemImg img {
+  width: 100% !important;
+  height: 550px !important;
+  object-fit: cover !important;
+}
