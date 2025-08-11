@@ -15,7 +15,6 @@ import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Blog from "../../components/Blog/Blog";
-import Footer from "../../components/Footer/Footer";
 import HomeSlider from "../../components/HomeSlider/HomeSlider";
 import { Link } from "react-router-dom";
 
@@ -157,8 +156,6 @@ const Home = () => {
           </Swiper>
         </div>
       </section>
-
-      <Footer className="ads" />
     </>
   );
 };
