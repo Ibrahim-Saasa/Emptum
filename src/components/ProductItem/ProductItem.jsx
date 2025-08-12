@@ -44,7 +44,7 @@ const ProductItem = () => {
             Victorinox
           </Link>
         </h6>
-        <h3 className="text-[14px] title">
+        <h3 className="text-[14px] title product-description">
           <Link to="/">
             Victorinox Swiss Army | Swiss Made Men's Automatic Watch, 42 mm,
             100M Water Resistant, Anti-Shock | Black Dial, Stainless Steel Case,

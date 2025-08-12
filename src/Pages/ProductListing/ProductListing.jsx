@@ -3,6 +3,7 @@ import FilterSidebar from "../../components/FilterSidebar/FilterSidebar";
 
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
+import ProductItem from "../../components/ProductItem/ProductItem";
 
 const ProductListing = () => {
   return (
@@ -31,6 +32,22 @@ const ProductListing = () => {
         <div className="container flex gap-3">
           <div className="sidebarwrapper w-[20%] h-full">
             <FilterSidebar />
+          </div>
+          <div className="rightContent w-[80%]">
+            <div className="grid grid-cols-4 md:grid-cols-4 gap-2">
+              <ProductItem />
+              <ProductItem />
+              <ProductItem />
+              <ProductItem />
+              <ProductItem />
+              <ProductItem />
+              <ProductItem />
+              <ProductItem />
+              <ProductItem />
+              <ProductItem />
+              <ProductItem />
+              <ProductItem />
+            </div>
           </div>
         </div>
       </div>

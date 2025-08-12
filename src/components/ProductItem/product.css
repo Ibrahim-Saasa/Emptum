@@ -65,3 +65,10 @@
   color: #fff0f5;
   transition: all 0.1s ease-in;
 }
+.product-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
