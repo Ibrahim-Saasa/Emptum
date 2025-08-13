@@ -112,7 +112,7 @@ const colors = [
 
 export default function FilterSidebar() {
   return (
-    <aside className="sidebar border rounded-md w-full shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+    <aside className="filter border rounded-md w-full shadow-[0_0_15px_rgba(0,0,0,0.5)]">
       {/* Brands */}
       <section className="!mb-6">
         <h3 className="font-semibold border-b pb-2 mb-3">Brand</h3>
