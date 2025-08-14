@@ -299,3 +299,7 @@ nav button:hover {
   border-radius: 10px;
   padding: 5px;
 }
+.Mui-selected .MuiPaginationItem-page {
+  background: #0c8563 !important;
+  color: #000;
+}
