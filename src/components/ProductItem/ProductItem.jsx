@@ -12,7 +12,7 @@ const ProductItem = () => {
   return (
     <div className="productItem  overflow-hidden">
       <div className="group imgWrapper overflow-hidden relative">
-        <Link to="/">
+        <Link to="/ProductDetails/:id">
           <div className="img">
             <img
               src="https://m.media-amazon.com/images/I/41BO9xuN4+L._MCnd_AC_.jpg"

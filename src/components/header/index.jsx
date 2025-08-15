@@ -55,18 +55,18 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="header py-4 border-b-[1px] border-green-200">
+      <div className="header border-b-[1px] border-green-200">
         <div className="container flex items-center justify-between">
-          <div className="col1 w-[25%]">
+          <div className="col1 w-[20%]">
             <Link to={"/"}>
               <img
                 src="../src/assets/gpt.png
               "
-                className="w-[100px]"
+                className="w-[50%]"
               />
             </Link>
           </div>
-          <div className="col2 w-[45%]">
+          <div className="col2 w-[50%]">
             <Search />
           </div>
           <div className="col3 w-[30%] flex items-center !pl-7 ">

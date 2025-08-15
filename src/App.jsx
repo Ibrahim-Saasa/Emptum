@@ -5,6 +5,7 @@ import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import ProductListing from "./Pages/ProductListing/ProductListing";
+import ProductDetails from "./Pages/ProductDetails/ProductDetails.jsx";
 
 function App() {
   return (
@@ -17,6 +18,11 @@ function App() {
             path={"/ProductListing"}
             exact={true}
             element={<ProductListing />}
+          />
+          <Route
+            path={"/ProductDetails/:id"}
+            exact={true}
+            element={<ProductDetails />}
           />
         </Routes>
         <Footer classname="ads" />

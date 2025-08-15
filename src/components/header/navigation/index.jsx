@@ -40,7 +40,10 @@ const Navigation = () => {
                 </Link>
               </li>
               <li className="list-none relative">
-                <Link to="/" className="link transition text-[14px] font-[400]">
+                <Link
+                  to="/ProductListing"
+                  className="link transition text-[14px] font-[400]"
+                >
                   <Button className="!link transition ">Fashion</Button>
                 </Link>
                 <div className="submenu absolute top-[100%] left-[0%] min-w-[200px] bg-white shadow-md opacity-0">

@@ -1,0 +1,110 @@
+/* ProductGallery.css */
+
+.thumbnail-container {
+  position: relative;
+}
+
+/* Hide default swiper navigation buttons */
+.thumbnail-container .swiper-button-next,
+.thumbnail-container .swiper-button-prev {
+  display: none;
+}
+
+/* Smooth hover animations for thumbnails */
+.thumbnail-wrapper {
+  background: #f8f9fa;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.thumbnail-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s ease;
+  z-index: 1;
+}
+
+.thumbnail-wrapper:hover::before {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Active thumbnail styling */
+.thumbnail-wrapper.active {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+/* Custom scrollbar for vertical slider */
+.thumbnail-container .swiper-wrapper {
+  padding: 4px;
+}
+
+/* Smooth transitions */
+.thumbnail-wrapper img {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.thumbnail-wrapper:hover img {
+  transform: scale(1.02);
+}
+
+/* Navigation button hover effects */
+.swiper-button-prev-custom:hover,
+.swiper-button-next-custom:hover {
+  background-color: #f3f4f6;
+  transform: translate(-50%, 0) scale(1.1);
+}
+
+/* Fade in animation for thumbnails */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.thumbnail-wrapper {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.thumbnail-wrapper:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.thumbnail-wrapper:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.thumbnail-wrapper:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.thumbnail-wrapper:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Focus states for accessibility */
+.thumbnail-wrapper:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .thumbnail-container .swiper {
+    width: 72px !important;
+    height: 360px !important;
+  }
+
+  .thumbnail-wrapper {
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
