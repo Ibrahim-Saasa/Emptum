@@ -5,7 +5,7 @@ import { IoSearch } from "react-icons/io5";
 
 const Search = () => {
   return (
-    <div className="searchBox w-[100%] h-[50px] bg-[#c2f5dc] rounded-[5px] relative p-2">
+    <div className="searchBox w-[100%] h-[50px] bg-[#fdf9f9] border-[#0c8563] rounded-[5px] relative p-2">
       <input
         type="text"
         placeholder="search for products..."

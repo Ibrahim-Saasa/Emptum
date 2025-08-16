@@ -108,3 +108,20 @@
     height: 64px !important;
   }
 }
+/* Add this to your CSS file or in a <style> tag */
+.product-zoom-wrapper img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.product-zoom-wrapper > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.product-zoom-wrapper > div > img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}

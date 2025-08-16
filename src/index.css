@@ -303,3 +303,6 @@ nav button:hover {
   background: #0c8563 !important;
   color: #000;
 }
+.reviewScroll::-webkit-scrollbar {
+  width: 1px !important;
+}

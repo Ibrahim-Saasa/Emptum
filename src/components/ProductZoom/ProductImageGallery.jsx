@@ -95,7 +95,7 @@ const ProductImageGallery = ({ images, onSelectImage, selectedImage }) => {
         </Swiper>
 
         {/* Image counter */}
-        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 font-medium">
+        <div className="absolute  left-1/2 transform -translate-x-1/2 text-xs text-gray-500 font-medium">
           {images.findIndex((img) => img === selectedImage) + 1} /{" "}
           {images.length}
         </div>
