@@ -6,29 +6,134 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import ProductListing from "./Pages/ProductListing/ProductListing";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails.jsx";
+import { createContext } from "react";
+import { useState } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import ProductZoom from "./components/ProductZoom/ProductZoom.jsx";
+import InnerImageZoom from "react-inner-image-zoom";
+import ProductImageGallery from "./components/ProductZoom/ProductImageGallery.jsx";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import { Link } from "react-router-dom";
+import Rating from "@mui/material/Rating";
+import Quantity from "./components/Quantity/Quantity.jsx";
+import ActionBtn from "./components/ActionBtn/ActionBtn.jsx";
+import ProductInfo from "./components/ProductItem/ProductInfo.jsx";
+
+const MyContext = createContext();
 
 function App() {
+  const [openProductDetailModal, setOpenProductDetailModal] = useState(false);
+  const productImages = [
+    "https://m.media-amazon.com/images/I/41BO9xuN4+L._MCnd_AC_.jpg",
+    "https://m.media-amazon.com/images/I/81Pvqcn0HPL._SX522_.jpg",
+    "https://m.media-amazon.com/images/I/81qTkwmkEpL._SX522_.jpg",
+    "https://m.media-amazon.com/images/I/81NSYrwxbjL._SX522_.jpg",
+  ];
+  const [selectedSize, setSelectedSize] = useState("42mm");
+  const [selectedColor, setSelectedColor] = useState("Black");
+
+  const sizes = ["38mm", "42mm", "45mm"];
+  const colors = ["Black", "Silver", "Gold"];
+
+  const [selectedImage, setSelectedImage] = useState(productImages[0]);
+
+  const handleClickOpenProductDetailModal = () => {
+    setOpenProductDetailModal(true);
+  };
+
+  const handleCloseProductDetailModal = () => {
+    setOpenProductDetailModal(false);
+  };
+  const [maxWidth, setMaxWidth] = useState("lg");
+  const handleMaxWidthChange = (event) => {
+    setMaxWidth(
+      // @ts-expect-error autofill of arbitrary value is not handled.
+      event.target.value
+    );
+  };
+
+  const handleFullWidthChange = (event) => {
+    setFullWidth(event.target.checked);
+  };
+
+  const values = { setOpenProductDetailModal };
   return (
     <>
       <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path={"/"} exact={true} element={<Home />} />
-          <Route
-            path={"/ProductListing"}
-            exact={true}
-            element={<ProductListing />}
-          />
-          <Route
-            path={"/ProductDetails/:id"}
-            exact={true}
-            element={<ProductDetails />}
-          />
-        </Routes>
-        <Footer classname="ads" />
+        <MyContext.Provider value={values}>
+          <Header />
+          <Routes>
+            <Route path={"/"} exact={true} element={<Home />} />
+            <Route
+              path={"/ProductListing"}
+              exact={true}
+              element={<ProductListing />}
+            />
+            <Route
+              path={"/ProductDetails/:id"}
+              exact={true}
+              element={<ProductDetails />}
+            />
+          </Routes>
+          <Footer classname="ads" />
+        </MyContext.Provider>
       </BrowserRouter>
+      <Dialog
+        open={openProductDetailModal}
+        onClose={handleCloseProductDetailModal}
+        fullWidth={handleFullWidthChange}
+        maxWidth={handleMaxWidthChange}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        className="productDetailsModal"
+      >
+        <DialogContent>
+          <div className="flex items-center w-full relative gap-5">
+            <Button className="!absolute top-[0px] right-[0px] !w-[40px] !h-[40px] !min-w-[40px] !rounded-full !text-[#000] ">
+              <IoMdCloseCircleOutline
+                className="!text-[25px]"
+                onClick={handleCloseProductDetailModal}
+              />
+            </Button>
+            <div className="col1 w-[40%]">
+              <div className="productZoomContainer flex !gap-4 flex-shrink-0">
+                <ProductImageGallery
+                  images={productImages}
+                  onSelectImage={setSelectedImage}
+                  selectedImage={selectedImage}
+                />
+                <div className="flex-1 flex !justify-center !items-center !w-[500px] !h-[500px] relative overflow-hidden rounded-lg product-zoom-wrapper ">
+                  <ProductZoom
+                    imageSrc={selectedImage}
+                    alt="Victorinox Swiss Army Watch"
+                    // width="100%"
+                    // height="100%"
+                    zoomType="hover"
+                    // style={{
+                    //   width: "auto", // important: keeps natural width
+                    //   maxWidth: "100%", // prevents overflow
+                    //   height: "auto",
+                    //   maxHeight: "100%", // keeps it centered vertically
+                    //   objectFit: "contain",
+                    // }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col2 w-[60%]">
+              <ProductInfo />
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
 
 export default App;
+export { MyContext };

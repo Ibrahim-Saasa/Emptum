@@ -1,29 +1,17 @@
 import React from "react";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Link } from "react-router-dom";
-import InnerImageZoom from "react-inner-image-zoom";
-// import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import ProductZoom from "../../components/ProductZoom/ProductZoom";
 import "../../components/ProductItem/product.css";
 import ProductImageGallery from "../../components/ProductZoom/ProductImageGallery";
 import { useState } from "react";
-import ProductItem from "../../components/ProductItem/ProductItem";
-import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
 import ProductSlider from "../../components/ProductSlider/ProductSlider";
-import {
-  FaRegHeart,
-  FaShare,
-  FaTruck,
-  FaShieldAlt,
-  FaUndo,
-} from "react-icons/fa";
-import { MdOutlineCompareArrows, MdLocalShipping } from "react-icons/md";
 import Quantity from "../../components/Quantity/Quantity";
 import ActionBtn from "../../components/ActionBtn/ActionBtn";
 import DeliveryInfo from "../../components/DeliveryInfo/DeliveryInfo";
 import Guarantees from "../../components/Guarantees/Guarantees";
-import TextField from "@mui/material/TextField";
+import ProductReview from "../../components/ProductReview/ProductReview";
 
 const ProductDetails = () => {
   const productImages = [
@@ -67,27 +55,84 @@ const ProductDetails = () => {
 
         <section className="bg-[#fff0f5] !mt-5 !py-8 !mb-5 w-[95%] rounded-md items-center justify-center !mx-auto shadow-[0_0_15px_rgba(0,0,0,0.3)]">
           <div className="container">
-            <div className="flex gap-8 lg:gap-12">
+            <div className="flex !gap-6">
               {/* Left Column - Images */}
-              <div className="productZoomContainer flex !gap-4 flex-shrink-0 !w-[40%]">
-                <ProductImageGallery
-                  images={productImages}
-                  onSelectImage={setSelectedImage}
-                  selectedImage={selectedImage}
-                />
-                <div className="flex-1 !h-[500px] relative overflow-hidden rounded-lg product-zoom-wrapper">
-                  <ProductZoom
-                    imageSrc={selectedImage}
-                    alt="Victorinox Swiss Army Watch"
-                    width="100%"
-                    height="100%"
-                    zoomType="hover"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
+              <div className="flex flex-col !w-1/2 gap-4">
+                <div className="productZoomContainer flex !gap-4 flex-shrink-0">
+                  <ProductImageGallery
+                    images={productImages}
+                    onSelectImage={setSelectedImage}
+                    selectedImage={selectedImage}
                   />
+                  <div className="flex-1 flex !justify-center !items-center !w-[500px] !h-[500px] relative overflow-hidden rounded-lg product-zoom-wrapper ">
+                    <ProductZoom
+                      imageSrc={selectedImage}
+                      alt="Victorinox Swiss Army Watch"
+                      zoomType="hover"
+                    />
+                  </div>
+                </div>
+                <div className="shadow-[0_0_15px_rgba(0,0,0,0.3)] !w-full !p-6 rounded-md">
+                  <table class="border-collapse w-full table-fixed">
+                    <tbody>
+                      <tr>
+                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                          Case Diameter
+                        </td>
+                        <td class="border border-gray-400 !px-4 !py-2">
+                          42 Milimeters
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                          Band colour
+                        </td>
+                        <td class="border border-gray-400 !px-4 !py-2">
+                          Black
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                          Band material type
+                        </td>
+                        <td class="border border-gray-400 !px-4 !py-2">
+                          Leather
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                          Warranty type
+                        </td>
+                        <td class="border border-gray-400 !px-4 !py-2">
+                          Manufacturer
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                          Watch movement type
+                        </td>
+                        <td class="border border-gray-400 !px-4 !py-2">
+                          Swiss Automatic
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                          Swiss Automatic
+                        </td>
+                        <td class="border border-gray-400 !px-4 !py-2">
+                          97 Grams
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                          Item weight
+                        </td>
+                        <td class="border border-gray-400 !px-4 !py-2">
+                          Switzerland
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
 
@@ -215,7 +260,7 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
-          <div className="container bg">
+          <div className="container">
             <div className="flex items-center !gap-8 !mb-4">
               <span
                 className={`link cursor-pointer text-[17px] font-[500] ${
@@ -231,7 +276,7 @@ const ProductDetails = () => {
                 }`}
                 onClick={() => setActiveTab(1)}
               >
-                Product Details
+                Product Specifications
               </span>
               <span
                 className={`link cursor-pointer text-[17px] font-[500] ${
@@ -292,179 +337,67 @@ const ProductDetails = () => {
 
             {activeTab === 1 && (
               <div className="shadow-[0_0_15px_rgba(0,0,0,0.3)] w-full !p-8 rounded-md">
-                <table class="border-collapse w-full table-fixed">
+                <h3 className="text-lg font-semibold mb-3">
+                  Watch Information
+                </h3>
+
+                <table className="w-full border-collapse">
                   <tbody>
-                    <tr>
-                      <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                    <tr className="border-b border-gray-200">
+                      <td className="font-semibold text-gray-700 py-2 w-[40%]">
+                        Band Colour
+                      </td>
+                      <td className="text-gray-600 py-2">Black</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-semibold text-gray-700 py-2">
+                        Band Material
+                      </td>
+                      <td className="text-gray-600 py-2">Leather</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-semibold text-gray-700 py-2">
+                        Band Width
+                      </td>
+                      <td className="text-gray-600 py-2">21 Millimeters</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-semibold text-gray-700 py-2">
+                        Bezel Function
+                      </td>
+                      <td className="text-gray-600 py-2">Stationary</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-semibold text-gray-700 py-2">
                         Case Diameter
                       </td>
-                      <td class="border border-gray-400 !px-4 !py-2">
-                        42 Milimeters
+                      <td className="text-gray-600 py-2">42 Millimeters</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-semibold text-gray-700 py-2">
+                        Case Thickness
                       </td>
+                      <td className="text-gray-600 py-2">11.05 Millimeters</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-semibold text-gray-700 py-2">
+                        Item Weight
+                      </td>
+                      <td className="text-gray-600 py-2">97 g</td>
                     </tr>
                     <tr>
-                      <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
-                        Band colour
+                      <td className="font-semibold text-gray-700 py-2">
+                        Model Number
                       </td>
-                      <td class="border border-gray-400 !px-4 !py-2">Black</td>
-                    </tr>
-                    <tr>
-                      <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
-                        Band material type
-                      </td>
-                      <td class="border border-gray-400 !px-4 !py-2">
-                        Leather
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
-                        Warranty type
-                      </td>
-                      <td class="border border-gray-400 !px-4 !py-2">
-                        Manufacturer
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
-                        Watch movement type
-                      </td>
-                      <td class="border border-gray-400 !px-4 !py-2">
-                        Swiss Automatic
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
-                        Swiss Automatic
-                      </td>
-                      <td class="border border-gray-400 !px-4 !py-2">
-                        97 Grams
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
-                        Item weight
-                      </td>
-                      <td class="border border-gray-400 !px-4 !py-2">
-                        Switzerland
-                      </td>
+                      <td className="text-gray-600 py-2">242044</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             )}
             {activeTab === 2 && (
-              <div className="shadow-[0_0_15px_rgba(0,0,0,0.3)] w-[80%] !p-8 rounded-md">
-                <div className="w-full reviewContainer !space-y-2">
-                  <h2 className="text-[18px]">Customer Reviews</h2>
-                  <div className="reviewScroll w-full max-h-[300px] overflow-y-scroll overflow-x-hidden !mt-4 !pr-5">
-                    <div className="review !pt-5 !pb-5 border-b border-[#0c8563] w-full flex items-center justify-between">
-                      <div className="info w-[60%] flex items-center !gap-3">
-                        <div className="img w-[80px] h-[80px] overflow-hidden rounded-full">
-                          <img
-                            src="https://tummybox.in/wp-content/uploads/2025/01/testimonial-face-4.jpg"
-                            alt="testimonial"
-                            className="w-full"
-                          />
-                        </div>
-                        <div className="w-[80%]">
-                          <h4 className="text-[16px]">David Rein</h4>
-                          <h5 className="text-[13px]">20-12-2025</h5>
-                          <p>
-                            I still have a Swiss Army watch I purchased in 2007
-                            which other than battery replacement has never let
-                            me down. I purchased this one due to the recessed
-                            crystal as I kept cracking the original which the
-                            crystal is flush with the face in my new career.
-                            Swiss Army is a quality product if you are someone
-                            that chooses to purchase items that will last you a
-                            long time.
-                          </p>
-                        </div>
-                      </div>
-                      <Rating value={4.5} precision={0.5} readOnly />
-                    </div>
-                    <div className="review !pt-5 !pb-5 border-b border-[#0c8563] w-full flex items-center justify-between">
-                      <div className="info w-[60%] flex items-center !gap-3">
-                        <div className="img w-[80px] h-[80px] overflow-hidden rounded-full">
-                          <img
-                            src="https://davidhoy.com/wp-content/uploads/2019/01/testimonial-face-referral.jpg"
-                            alt="testimonial"
-                            className="w-full"
-                          />
-                        </div>
-                        <div className="w-[80%]">
-                          <h4 className="text-[16px]">Angela Morgan</h4>
-                          <h5 className="text-[13px]">20-12-2025</h5>
-                          <p>
-                            Nice watch! I did not check well and brought
-                            thinking it as Swiss Automatic, but it was actually
-                            Quartz. Since I brought it at a discounted price,
-                            decided to keep it.
-                          </p>
-                        </div>
-                      </div>
-                      <Rating value={4} precision={0.5} readOnly />
-                    </div>
-                    <div className="review !pt-5 !pb-5 border-b border-[#0c8563] w-full flex items-center justify-between">
-                      <div className="info w-[60%] flex items-center !gap-3">
-                        <div className="img w-[80px] h-[80px] overflow-hidden rounded-full">
-                          <img
-                            src="https://www.psacramento.com/content/images/2021/10/paulo-sacramento.1024x1024-1.jpg"
-                            alt="testimonial"
-                            className="w-full"
-                          />
-                        </div>
-                        <div className="w-[80%]">
-                          <h4 className="text-[16px]">Alex Durby</h4>
-                          <h5 className="text-[13px]">20-12-2025</h5>
-                          <p>
-                            Buy it, workmanship and swiss movement top notch.
-                          </p>
-                        </div>
-                      </div>
-                      <Rating value={4.5} precision={0.5} readOnly />
-                    </div>
-                    <div className="review !pt-5 !pb-5 border-b border-[#0c8563] w-full flex items-center justify-between">
-                      <div className="info w-[60%] flex items-center !gap-3">
-                        <div className="img w-[80px] h-[80px] overflow-hidden rounded-full">
-                          <img
-                            src="https://davidhoy.com/wp-content/uploads/2019/01/testimonial-average-woman.jpg"
-                            alt="testimonial"
-                            className="w-full"
-                          />
-                        </div>
-                        <div className="w-[80%]">
-                          <h4 className="text-[16px]">Sam Hellen</h4>
-                          <h5 className="text-[13px]">20-12-2025</h5>
-                          <p>Great watch would recommend</p>
-                        </div>
-                      </div>
-                      <Rating value={3} precision={0.5} readOnly />
-                    </div>
-                  </div>
-                  <div className="reviewForm bg-[#9ec49e] !p-4 rounded-md">
-                    <h2 className="text-[18px]">Add a Review</h2>
-                    <form action="" className="w-full !mt-5">
-                      <TextField
-                        id="outlined-multiline-static"
-                        label="Leave a Review"
-                        multiline
-                        rows={5}
-                        variant="filled"
-                        className="w-full"
-                      />
-                      <Rating
-                        name="half-rating"
-                        defaultValue={0}
-                        precision={0.5}
-                        className="!mt-2"
-                      />
-                      <div className="flex items-center !mt-5">
-                        <Button className="form-btn">Submit Review</Button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+              <div className="shadow-[0_0_15px_rgba(0,0,0,0.3)] w-full !p-8 rounded-md flex items-center justify-center gap-5">
+                <ProductReview />
               </div>
             )}
           </div>

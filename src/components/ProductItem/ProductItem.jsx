@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../ProductItem/product.css";
 import { Link } from "react-router-dom";
 import Rating from "@mui/material/Rating";
@@ -7,8 +7,11 @@ import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineCompareArrows } from "react-icons/md";
 import { MdOutlineZoomOutMap } from "react-icons/md";
 import img1 from "../../assets/1.jpg";
+import { MyContext } from "../../App";
 
 const ProductItem = () => {
+  const context = useContext(MyContext);
+
   return (
     <div className="productItem  overflow-hidden">
       <div className="group imgWrapper overflow-hidden relative">
@@ -24,18 +27,18 @@ const ProductItem = () => {
           <span className="discount flex items-center absolute top-[10px] left-[10px] z-50 text-white bg-[#0c8563] rounded-md !p-2 text-[12px] font-500">
             -41%
           </span>
-          <div className="actions absolute top-[-200px] right-[15px] z-50 flex items-center gap-4 flex-col w-[50px] transition-all duration-700 group-hover:top-[15px]">
-            <Button>
-              <FaRegHeart className="text-[18px]" />
-            </Button>
-            <Button>
-              <MdOutlineCompareArrows className="text-[18px]" />
-            </Button>
-            <Button>
-              <MdOutlineZoomOutMap className="text-[18px]" />
-            </Button>
-          </div>
         </Link>
+        <div className="actions absolute top-[-200px] right-[15px] z-50 flex items-center gap-4 flex-col w-[50px] transition-all duration-700 group-hover:top-[15px]">
+          <Button>
+            <FaRegHeart className="text-[18px]" />
+          </Button>
+          <Button>
+            <MdOutlineCompareArrows className="text-[18px]" />
+          </Button>
+          <Button onClick={() => context.setOpenProductDetailModal(true)}>
+            <MdOutlineZoomOutMap className="text-[18px]" />
+          </Button>
+        </div>
       </div>
       <div className="info p-3">
         <h6 className="text-[13px]">

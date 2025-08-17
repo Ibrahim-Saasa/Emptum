@@ -306,3 +306,15 @@ nav button:hover {
 .reviewScroll::-webkit-scrollbar {
   width: 1px !important;
 }
+.reviewBtn .form-btn {
+  background-color: #fff0f5 !important;
+  color: #0c8563 !important;
+  margin-top: 5px !important;
+  font-weight: 500 !important;
+}
+.reviewBtn .form-btn:hover {
+  background-color: #9ec49e !important;
+  color: #fff0f5 !important;
+  margin-top: 5px !important;
+  transition: 0.2s ease-in;
+}
