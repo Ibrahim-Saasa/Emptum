@@ -318,3 +318,12 @@ nav button:hover {
   margin-top: 5px !important;
   transition: 0.2s ease-in;
 }
+.mui-input:focus {
+  border-color: #1976d2 !important;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+  outline: none;
+}
+.custom-phone-input::placeholder {
+  color: rgba(0, 0, 0, 0.6); /* MUI primary color */
+  opacity: 1;
+}

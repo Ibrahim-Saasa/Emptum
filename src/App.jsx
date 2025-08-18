@@ -23,6 +23,8 @@ import Rating from "@mui/material/Rating";
 import Quantity from "./components/Quantity/Quantity.jsx";
 import ActionBtn from "./components/ActionBtn/ActionBtn.jsx";
 import ProductInfo from "./components/ProductItem/ProductInfo.jsx";
+import Login from "./Pages/Login/Login.jsx";
+import Register from "./Pages/Register/Register.jsx";
 
 const MyContext = createContext();
 
@@ -79,6 +81,8 @@ function App() {
               exact={true}
               element={<ProductDetails />}
             />
+            <Route path={"/login"} exact={true} element={<Login />} />
+            <Route path={"/register"} exact={true} element={<Register />} />
           </Routes>
           <Footer classname="ads" />
         </MyContext.Provider>
