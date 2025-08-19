@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
@@ -10,6 +10,7 @@ import { IoIosGitCompare } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa6";
 import Tooltip from "@mui/material/Tooltip";
 import Navigation from "./navigation";
+import { MyContext } from "../../App";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -20,6 +21,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 const Header = () => {
+  const context = useContext(MyContext);
+
   return (
     <header>
       <div className="top-strip py-2 border-t-[1px] border-green-200 border-b-[1px]">
@@ -58,7 +61,7 @@ const Header = () => {
       <div className="header border-b-[1px] border-green-200">
         <div className="container flex items-center justify-between">
           <div className="col1 w-[20%]">
-            <Link to={"/"}>
+            <Link to="/">
               <img
                 src="../src/assets/gpt.png
               "
@@ -88,10 +91,10 @@ const Header = () => {
               </li>
 
               <li>
-                <Tooltip title="Cart">
+                <Tooltip title="Wish List">
                   <StyledBadge badgeContent={4} color="secondary">
-                    <IconButton aria-label="cart" className="icon">
-                      <MdOutlineShoppingCart />
+                    <IconButton aria-label="Wish List" className="icon">
+                      <FaRegHeart className="text-[20px]" />
                     </IconButton>
                   </StyledBadge>
                 </Tooltip>
@@ -106,10 +109,14 @@ const Header = () => {
                 </Tooltip>
               </li>
               <li>
-                <Tooltip title="Wish List">
+                <Tooltip title="Cart">
                   <StyledBadge badgeContent={4} color="secondary">
-                    <IconButton aria-label="Wish List" className="icon">
-                      <FaRegHeart />
+                    <IconButton
+                      aria-label="cart"
+                      className="icon"
+                      onClick={() => context.setOpen(true)}
+                    >
+                      <MdOutlineShoppingCart />
                     </IconButton>
                   </StyledBadge>
                 </Tooltip>

@@ -46,10 +46,9 @@ const SideBar = ({ open, toggleDrawer }) => {
       sx={{ width: 250 }}
       role="presentation"
       className="sidebar"
-      // onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <h2 className="text-center text-bold text-[500] !p-5 flex items-center justify-between">
+      <h2 className="text-center text-bold font-[500] !p-5 flex items-center justify-between">
         Shop By Categories
         <IoMdCloseCircleOutline
           className="text-[20px] cursor-pointer"
@@ -326,7 +325,16 @@ const SideBar = ({ open, toggleDrawer }) => {
   return (
     <div>
       {" "}
-      <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
+      <Drawer
+        anchor="left"
+        open={open}
+        onClose={toggleDrawer(false)}
+        PaperProps={{
+          sx: {
+            backgroundColor: "#fff0f5", // change this to your color
+          },
+        }}
+      >
         {DrawerList}
       </Drawer>
     </div>

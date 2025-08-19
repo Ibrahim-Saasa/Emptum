@@ -17,8 +17,16 @@ import { SiPaytm } from "react-icons/si";
 import { FaCcPaypal } from "react-icons/fa";
 import { FaCcApplePay } from "react-icons/fa6";
 import { FaGooglePay } from "react-icons/fa";
+import Drawer from "@mui/material/Drawer";
+import { Divider } from "@mui/material";
+import { MyContext } from "../../App.jsx";
+import { useContext } from "react";
+import CartPanel from "../CartPanel/CartPanel.jsx";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 const Footer = () => {
+  const context = useContext(MyContext);
+
   return (
     <>
       <footer className="!py-10 bg-[#fff0f5] shadow-[0_0_15px_rgba(0,0,0,0.3)]">
@@ -243,6 +251,31 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/*Cart Panel*/}
+      <Drawer
+        open={context.open}
+        onClose={context.toggleCartPanel(false)}
+        anchor={"right"}
+        className="cartPanel"
+        PaperProps={{
+          sx: {
+            backgroundColor: "#fff0f5",
+          },
+        }}
+      >
+        <div className="flex items-center justify-between !p-5 gap-3 shadow-[0_0_15px_rgba(0,0,0,0.3)]">
+          <h2 className="text-center text-bold font-[500] flex items-center justify-between">
+            Shopping Cart
+          </h2>
+          <IoMdCloseCircleOutline
+            className="text-[20px] cursor-pointer"
+            onClick={context.toggleCartPanel(false)}
+          />
+        </div>
+        <Divider className="divider" />
+        <CartPanel />
+      </Drawer>
     </>
   );
 };

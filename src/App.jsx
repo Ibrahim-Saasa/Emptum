@@ -17,14 +17,12 @@ import DialogTitle from "@mui/material/DialogTitle";
 import ProductZoom from "./components/ProductZoom/ProductZoom.jsx";
 import InnerImageZoom from "react-inner-image-zoom";
 import ProductImageGallery from "./components/ProductZoom/ProductImageGallery.jsx";
-import { IoMdCloseCircleOutline } from "react-icons/io";
-import { Link } from "react-router-dom";
-import Rating from "@mui/material/Rating";
-import Quantity from "./components/Quantity/Quantity.jsx";
-import ActionBtn from "./components/ActionBtn/ActionBtn.jsx";
 import ProductInfo from "./components/ProductItem/ProductInfo.jsx";
 import Login from "./Pages/Login/Login.jsx";
 import Register from "./Pages/Register/Register.jsx";
+
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import CartPanel from "./components/CartPanel/CartPanel.jsx";
 
 const MyContext = createContext();
 
@@ -62,8 +60,13 @@ function App() {
   const handleFullWidthChange = (event) => {
     setFullWidth(event.target.checked);
   };
+  const [open, setOpen] = useState(false);
 
-  const values = { setOpenProductDetailModal };
+  const toggleCartPanel = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+
+  const values = { setOpenProductDetailModal, setOpen, open, toggleCartPanel };
   return (
     <>
       <BrowserRouter>
@@ -115,16 +118,7 @@ function App() {
                   <ProductZoom
                     imageSrc={selectedImage}
                     alt="Victorinox Swiss Army Watch"
-                    // width="100%"
-                    // height="100%"
                     zoomType="hover"
-                    // style={{
-                    //   width: "auto", // important: keeps natural width
-                    //   maxWidth: "100%", // prevents overflow
-                    //   height: "auto",
-                    //   maxHeight: "100%", // keeps it centered vertically
-                    //   objectFit: "contain",
-                    // }}
                   />
                 </div>
               </div>

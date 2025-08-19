@@ -8,6 +8,9 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa6";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { Divider, Typography } from "@mui/material";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -65,6 +68,11 @@ const Register = () => {
                 variant="filled"
                 className="w-full"
               />
+              <FormControlLabel
+                control={<Checkbox color="primary" />}
+                label="Remember me"
+                className="!mt-5"
+              />
               <Button
                 className="!absolute top-[10px] right-[5px] z-50 !w-[35px] !h-[35px] !min-w-[35px] !rounded-full"
                 onClick={() => setShowPassword(!showPassword)}
@@ -90,9 +98,11 @@ const Register = () => {
               </Link>
             </p>
 
-            <p className="text-center font-[500] !mb-5">
-              Or Sign in With Social Account
-            </p>
+            <Divider sx={{ my: 3 }}>
+              <Typography variant="body2" color="text.secondary">
+                OR
+              </Typography>
+            </Divider>
             <Button className="flex gap-3 w-full !bg-[#eae5e5] !border-2 !border-[#0c8563] !text-black !mb-2">
               <FcGoogle className="text-[20px]" /> Sign In with Google
             </Button>

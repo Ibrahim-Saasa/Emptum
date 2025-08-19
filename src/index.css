@@ -327,3 +327,6 @@ nav button:hover {
   color: rgba(0, 0, 0, 0.6); /* MUI primary color */
   opacity: 1;
 }
+.cartPanel .MuiPaper-root {
+  width: 500px;
+}
