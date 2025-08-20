@@ -23,6 +23,7 @@ import Register from "./Pages/Register/Register.jsx";
 
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import CartPanel from "./components/CartPanel/CartPanel.jsx";
+import CartPage from "./Pages/Cart/index.jsx";
 
 const MyContext = createContext();
 
@@ -86,6 +87,7 @@ function App() {
             />
             <Route path={"/login"} exact={true} element={<Login />} />
             <Route path={"/register"} exact={true} element={<Register />} />
+            <Route path={"/cart"} exact={true} element={<CartPage />} />
           </Routes>
           <Footer classname="ads" />
         </MyContext.Provider>

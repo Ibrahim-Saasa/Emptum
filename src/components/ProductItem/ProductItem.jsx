@@ -25,7 +25,7 @@ const ProductItem = () => {
           </div>
 
           <span className="discount flex items-center absolute top-[10px] left-[10px] z-50 text-white bg-[#0c8563] rounded-md !p-2 text-[12px] font-500">
-            -41%
+            -34%
           </span>
         </Link>
         <div className="actions absolute top-[-200px] right-[15px] z-50 flex items-center gap-4 flex-col w-[50px] transition-all duration-700 group-hover:top-[15px]">

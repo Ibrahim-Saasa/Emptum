@@ -4,10 +4,12 @@ import ProductZoom from "../ProductZoom/ProductZoom";
 import ProductImageGallery from "../ProductZoom/ProductImageGallery";
 import { IoTrash } from "react-icons/io5";
 import { Button, Divider } from "@mui/material";
+import Quantity from "../Quantity/Quantity";
 
 const CartPanel = () => {
   const product = {
     id: 1,
+    brand: "Victorinox",
     name: "Victorinox Swiss Army | Swiss Made Men's Automatic Watch, 42 mm, 100M Water Resistant, Anti-Shock | Black Dial, Stainless Steel Case, Black Leather Strap, Sellita SW200-1 Movement | 242044",
     price: 399,
     qty: 1,
@@ -31,7 +33,7 @@ const CartPanel = () => {
       <div className="scroll w-full !max-h-[300px] overflow-y-scroll overflow-x-hidden !py-3 !px-4">
         <div className="cartItem w-full flex items-center gap-4 !pb-4">
           <div className="img w-[25%]">
-            <Link to="/product/48484">
+            <Link to="/ProductDetails/48484">
               <ProductZoom
                 imageSrc={selectedImage}
                 alt={product.name}
@@ -42,20 +44,25 @@ const CartPanel = () => {
             </Link>
           </div>
           <div className="info w-[75%] !pr-5 relative">
+            <h1 className="font-[500] text-[#0c8563]">{product.brand}</h1>
             <h3 className="text-[14px] title product-description">
-              <Link to="/product/1818" className="link transition-all">
+              <Link to="/ProductDetails/1818" className="link transition-all">
                 {product.name}
               </Link>
             </h3>
 
-            <p className="flex items-center gap-5 !mb-2 !mt-2">
-              <span>
+            <div className="flex items-center gap-5 !mb-2 !mt-2 w-full">
+              {/* <span>
                 Qty : <span>{product.qty}</span>
-              </span>
+              </span> */}
+              <div>
+                <Quantity className="!w-[25%]" />
+              </div>
+
               <span className="text-[#0c8563] font-bold">
                 Price : ${product.price}
               </span>
-            </p>
+            </div>
             <IoTrash className="!absolute top-[30px] right-[1px] cursor-pointer text-[20px] link transition-all" />
           </div>
         </div>

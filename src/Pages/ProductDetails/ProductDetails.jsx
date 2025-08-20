@@ -27,6 +27,14 @@ const ProductDetails = () => {
 
   const sizes = ["38mm", "42mm", "45mm"];
   const colors = ["Black", "Silver", "Gold"];
+  const [quantity, setQuantity] = useState(1);
+  const handleQuantityChange = (action) => {
+    if (action === "increase") {
+      setQuantity((prev) => prev + 1);
+    } else if (action === "decrease" && quantity > 1) {
+      setQuantity((prev) => prev - 1);
+    }
+  };
 
   return (
     <>
@@ -141,12 +149,12 @@ const ProductDetails = () => {
               <div className="productContent flex-1 max-w-2xl !w-[60%]">
                 {/* Brand & Title */}
                 <div className="!mb-4">
-                  <Link
-                    to="/brand/victorinox"
+                  <a
+                    href="https://www.victorinox.com/en/"
                     className="text-green-600 hover:text-green  -700 text-sm font-medium !mb-2 block"
                   >
                     Victorinox
-                  </Link>
+                  </a>
                   <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 leading-tight !mb-3">
                     Victorinox Swiss Army Men's Automatic Watch, 42mm, 100M
                     Water Resistant, Anti-Shock

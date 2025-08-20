@@ -21,7 +21,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const ProductListing = () => {
   const [itemView, setItemView] = useState("grid");
-  const [age, setAge] = React.useState("");
+  const [age, setAge] = useState("");
 
   const handleChange = (event) => {
     setAge(event.target.value);

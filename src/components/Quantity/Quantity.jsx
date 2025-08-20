@@ -14,7 +14,7 @@ const Quantity = () => {
 
   return (
     <div>
-      <h3 className="text-sm font-medium text-gray-900 !mb-3">Quantity</h3>
+      {/* <h3 className="text-sm font-medium text-gray-900 !mb-3">Quantity</h3> */}
       <div className="flex items-center gap-3">
         <div className="flex items-center border border-gray-300 rounded-lg">
           <button
@@ -34,12 +34,12 @@ const Quantity = () => {
             <AiOutlinePlus className="w-4 h-4" />
           </button>
         </div>
-        <span className="text-sm text-gray-600">
+        {/* <span className="text-sm text-gray-600">
           {quantity > 5
             ? "5+ items"
             : `${quantity} item${quantity > 1 ? "s" : ""}`}{" "}
           in cart
-        </span>
+        </span> */}
       </div>
     </div>
   );
