@@ -10,20 +10,17 @@ import { createContext } from "react";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import ProductZoom from "./components/ProductZoom/ProductZoom.jsx";
-import InnerImageZoom from "react-inner-image-zoom";
 import ProductImageGallery from "./components/ProductZoom/ProductImageGallery.jsx";
 import ProductInfo from "./components/ProductItem/ProductInfo.jsx";
 import Login from "./Pages/Login/Login.jsx";
 import Register from "./Pages/Register/Register.jsx";
-
 import { IoMdCloseCircleOutline } from "react-icons/io";
-import CartPanel from "./components/CartPanel/CartPanel.jsx";
 import CartPage from "./Pages/Cart/index.jsx";
+import Verify from "./Pages/Verify/Verify.jsx";
+import toast, { Toaster } from "react-hot-toast";
+import ForgotPassword from "./Pages/ForgotPassword/Login.jsx";
 
 const MyContext = createContext();
 
@@ -67,7 +64,22 @@ function App() {
     setOpen(newOpen);
   };
 
-  const values = { setOpenProductDetailModal, setOpen, open, toggleCartPanel };
+  const openAlertBox = (status, msg) => {
+    if (status === "success") {
+      toast.success(msg);
+    }
+    if (status === "error") {
+      toast.error(msg);
+    }
+  };
+
+  const values = {
+    setOpenProductDetailModal,
+    setOpen,
+    open,
+    toggleCartPanel,
+    openAlertBox,
+  };
   return (
     <>
       <BrowserRouter>
@@ -88,10 +100,17 @@ function App() {
             <Route path={"/login"} exact={true} element={<Login />} />
             <Route path={"/register"} exact={true} element={<Register />} />
             <Route path={"/cart"} exact={true} element={<CartPage />} />
+            <Route path={"/verify"} exact={true} element={<Verify />} />
+            <Route
+              path={"/forgotPassword"}
+              exact={true}
+              element={<ForgotPassword />}
+            />
           </Routes>
           <Footer classname="ads" />
         </MyContext.Provider>
       </BrowserRouter>
+      <Toaster />
       <Dialog
         open={openProductDetailModal}
         onClose={handleCloseProductDetailModal}

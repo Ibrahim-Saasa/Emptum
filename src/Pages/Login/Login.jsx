@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa6";
 import { Divider, Typography } from "@mui/material";
+import { MyContext } from "../../App";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+  const [formFields, setFormFields] = useState({ email: "", password: "" });
+  const history = useNavigate();
+  const context = useContext(MyContext);
+  const forgotPassword = () => {
+    context.openAlertBox("success", "OTP Sent!");
+    history("/verify");
+  };
   return (
     <section className="section !py-10">
       <div className="container">
@@ -28,6 +35,7 @@ const Login = () => {
                 label="Email Id"
                 variant="filled"
                 className="w-full"
+                name="name"
               />
             </div>
             <div className="form-group w-full !mb-5 relative">
@@ -37,6 +45,7 @@ const Login = () => {
                 label="Password"
                 variant="filled"
                 className="w-full"
+                name="password"
               />
               <FormControlLabel
                 control={<Checkbox color="primary" />}
@@ -44,6 +53,7 @@ const Login = () => {
                 className="!mt-5"
               />
               <Button
+                type="submit"
                 className="!absolute top-[10px] right-[5px] z-50 !w-[35px] !h-[35px] !min-w-[35px] !rounded-full"
                 onClick={() => setShowPassword(!showPassword)}
               >
@@ -55,9 +65,13 @@ const Login = () => {
               </Button>
             </div>
 
-            <a href="" className="link text-[14px] font-[600]">
+            <Link
+              to="/verify"
+              className="link text-[14px] font-[600]"
+              onClick={forgotPassword}
+            >
               Forgot Password?
-            </a>
+            </Link>
             <div className="flex items-center w-full !mt-5 !mb-5">
               <Button className="form-btn w-full">Login</Button>
             </div>

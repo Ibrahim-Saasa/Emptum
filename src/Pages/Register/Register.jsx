@@ -14,6 +14,8 @@ import { Divider, Typography } from "@mui/material";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+
   const [phone, setPhone] = useState("");
 
   return (
@@ -60,19 +62,15 @@ const Register = () => {
                 className="w-full !mt-5"
               />
             </div>
-            <div className="form-group w-full !mb-5 relative">
+            <div className="form-group w-full relative">
               <TextField
                 type={showPassword === false ? "password" : "text"}
                 id="password"
                 label="Password"
                 variant="filled"
-                className="w-full"
+                className="w-full !mb-5"
               />
-              <FormControlLabel
-                control={<Checkbox color="primary" />}
-                label="Remember me"
-                className="!mt-5"
-              />
+
               <Button
                 className="!absolute top-[10px] right-[5px] z-50 !w-[35px] !h-[35px] !min-w-[35px] !rounded-full"
                 onClick={() => setShowPassword(!showPassword)}
@@ -83,6 +81,30 @@ const Register = () => {
                   <IoMdEyeOff className="text-[20px] text-[#0c8563] opacity-80" />
                 )}
               </Button>
+            </div>
+            <div className="form-group w-full !mb-5 relative">
+              <TextField
+                type={showPassword2 === false ? "password" : "text"}
+                id="confirmPassword"
+                label="Confirm Password"
+                variant="filled"
+                className="w-full"
+              />
+              <Button
+                className="!absolute top-[10px] right-[5px] z-50 !w-[35px] !h-[35px] !min-w-[35px] !rounded-full"
+                onClick={() => setShowPassword2(!showPassword2)}
+              >
+                {showPassword2 === false ? (
+                  <IoMdEye className="text-[20px] text-[#0c8563] opacity-80" />
+                ) : (
+                  <IoMdEyeOff className="text-[20px] text-[#0c8563] opacity-80" />
+                )}
+              </Button>
+              <FormControlLabel
+                control={<Checkbox color="primary" />}
+                label="Remember me"
+                className="!mt-5"
+              />
             </div>
 
             <div className="flex items-center w-full !mt-5 !mb-5">
