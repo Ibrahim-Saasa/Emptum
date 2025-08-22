@@ -82,22 +82,21 @@ function App() {
   };
   return (
     <>
-      <HashRouter>
-        <MyContext.Provider value={values}>
-          <Header />
-          <Routes>
-            <Route path={"/"} element={<Home />} />
-            <Route path={"/ProductListing"} element={<ProductListing />} />
-            <Route path={"/ProductDetails/:id"} element={<ProductDetails />} />
-            <Route path={"/login"} element={<Login />} />
-            <Route path={"/register"} element={<Register />} />
-            <Route path={"/cart"} element={<CartPage />} />
-            <Route path={"/verify"} element={<Verify />} />
-            <Route path={"/forgotPassword"} element={<ForgotPassword />} />
-          </Routes>
-          <Footer classname="ads" />
-        </MyContext.Provider>
-      </HashRouter>
+      <MyContext.Provider value={values}>
+        <Header />
+        <Routes>
+          <Route path={"/"} element={<Home />} />
+          <Route path={"/ProductListing"} element={<ProductListing />} />
+          <Route path={"/ProductDetails/:id"} element={<ProductDetails />} />
+          <Route path={"/login"} element={<Login />} />
+          <Route path={"/register"} element={<Register />} />
+          <Route path={"/cart"} element={<CartPage />} />
+          <Route path={"/verify"} element={<Verify />} />
+          <Route path={"/forgotPassword"} element={<ForgotPassword />} />
+        </Routes>
+        <Footer classname="ads" />
+      </MyContext.Provider>
+
       <Toaster />
       <Dialog
         open={openProductDetailModal}
