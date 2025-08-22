@@ -88,63 +88,72 @@ function App() {
   };
   return (
     <>
-      <MyContext.Provider value={values}>
-        <Header />
-        <Routes>
-          <Route path={"/"} element={<Home />} />
-          <Route path={"/ProductListing"} element={<ProductListing />} />
-          <Route path={"/ProductDetails/:id"} element={<ProductDetails />} />
-          <Route path={"/login"} element={<Login />} />
-          <Route path={"/register"} element={<Register />} />
-          <Route path={"/cart"} element={<CartPage />} />
-          <Route path={"/verify"} element={<Verify />} />
-          <Route path={"/forgotPassword"} element={<ForgotPassword />} />
-          <Route path={"/checkout"} element={<Checkout />} />
-          <Route path={"/my-account"} element={<MyAccount />} />
-        </Routes>
-        <Footer classname="ads" />
-      </MyContext.Provider>
-
-      <Toaster />
-      <Dialog
-        open={openProductDetailModal}
-        onClose={handleCloseProductDetailModal}
-        fullWidth={handleFullWidthChange}
-        maxWidth={handleMaxWidthChange}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        className="productDetailsModal"
-      >
-        <DialogContent>
-          <div className="flex items-center w-full relative gap-5">
-            <Button className="!absolute top-[0px] right-[0px] !w-[40px] !h-[40px] !min-w-[40px] !rounded-full !text-[#000] ">
-              <IoMdCloseCircleOutline
-                className="!text-[25px]"
-                onClick={handleCloseProductDetailModal}
-              />
-            </Button>
-            <div className="col1 w-[40%]">
-              <div className="productZoomContainer flex !gap-4 flex-shrink-0">
-                <ProductImageGallery
-                  images={productImages}
-                  onSelectImage={setSelectedImage}
-                  selectedImage={selectedImage}
+      <div className="App">
+        <HashRouter>
+          <MyContext.Provider value={values}>
+            <Header />
+            <main>
+              <Routes>
+                <Route path={"/"} element={<Home />} />
+                <Route path={"/ProductListing"} element={<ProductListing />} />
+                <Route
+                  path={"/ProductDetails/:id"}
+                  element={<ProductDetails />}
                 />
-                <div className="flex-1 flex !justify-center !items-center !w-[500px] !h-[500px] relative overflow-hidden rounded-lg product-zoom-wrapper ">
-                  <ProductZoom
-                    imageSrc={selectedImage}
-                    alt="Victorinox Swiss Army Watch"
-                    zoomType="hover"
+                <Route path={"/login"} element={<Login />} />
+                <Route path={"/register"} element={<Register />} />
+                <Route path={"/cart"} element={<CartPage />} />
+                <Route path={"/verify"} element={<Verify />} />
+                <Route path={"/forgotPassword"} element={<ForgotPassword />} />
+                <Route path={"/checkout"} element={<Checkout />} />
+                <Route path={"/my-account"} element={<MyAccount />} />
+              </Routes>
+            </main>
+            <Footer classname="ads" />
+          </MyContext.Provider>
+        </HashRouter>
+
+        <Toaster />
+        <Dialog
+          open={openProductDetailModal}
+          onClose={handleCloseProductDetailModal}
+          fullWidth={handleFullWidthChange}
+          maxWidth={handleMaxWidthChange}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          className="productDetailsModal"
+        >
+          <DialogContent>
+            <div className="flex items-center w-full relative gap-5">
+              <Button className="!absolute top-[0px] right-[0px] !w-[40px] !h-[40px] !min-w-[40px] !rounded-full !text-[#000] ">
+                <IoMdCloseCircleOutline
+                  className="!text-[25px]"
+                  onClick={handleCloseProductDetailModal}
+                />
+              </Button>
+              <div className="col1 w-[40%]">
+                <div className="productZoomContainer flex !gap-4 flex-shrink-0">
+                  <ProductImageGallery
+                    images={productImages}
+                    onSelectImage={setSelectedImage}
+                    selectedImage={selectedImage}
                   />
+                  <div className="flex-1 flex !justify-center !items-center !w-[500px] !h-[500px] relative overflow-hidden rounded-lg product-zoom-wrapper ">
+                    <ProductZoom
+                      imageSrc={selectedImage}
+                      alt="Victorinox Swiss Army Watch"
+                      zoomType="hover"
+                    />
+                  </div>
                 </div>
               </div>
+              <div className="col2 w-[60%]">
+                <ProductInfo />
+              </div>
             </div>
-            <div className="col2 w-[60%]">
-              <ProductInfo />
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      </div>
     </>
   );
 }
