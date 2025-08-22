@@ -99,7 +99,7 @@ const CartPanel = () => {
             {" "}
             <Button className="form-btn  w-full">View Cart</Button>
           </Link>
-          <Link to="/" className="w-[50%] d-block !mr-5">
+          <Link to="/checkout" className="w-[50%] d-block !mr-5">
             <Button className="form-btn w-full">Checkout</Button>
           </Link>
         </div>

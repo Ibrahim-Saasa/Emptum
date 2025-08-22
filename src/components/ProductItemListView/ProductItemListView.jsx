@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineCompareArrows } from "react-icons/md";
 import { MdOutlineZoomOutMap } from "react-icons/md";
-import img1 from "../../assets/1.jpg";
 import { MyContext } from "../../App";
 
 const ProductItem = () => {

@@ -53,7 +53,7 @@ const Checkout = () => {
         <span className="text-[#0c8563] font-bold">${total.toFixed(2)}</span>
       </div>
       <div className="flex items-center justify-between w-full !mt-5 gap-5">
-        <Link to="/" className="w-[100%] d-block ">
+        <Link to="/checkout" className="w-[100%] d-block ">
           <Button className="form-btn w-full gap-2">
             <IoBagCheckOutline className="text-[20px]" />
             Checkout

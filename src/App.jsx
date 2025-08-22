@@ -21,6 +21,8 @@ import CartPage from "./Pages/Cart/index.jsx";
 import Verify from "./Pages/Verify/Verify.jsx";
 import toast, { Toaster } from "react-hot-toast";
 import ForgotPassword from "./Pages/ForgotPassword/Login.jsx";
+import Checkout from "./Pages/Checkout/Checkout.jsx";
+import MyAccount from "./Pages/myAccount/MyAccount.jsx";
 
 const MyContext = createContext();
 
@@ -34,6 +36,8 @@ function App() {
   ];
   const [selectedSize, setSelectedSize] = useState("42mm");
   const [selectedColor, setSelectedColor] = useState("Black");
+
+  const [isLogin, setIsLogin] = useState(true);
 
   const sizes = ["38mm", "42mm", "45mm"];
   const colors = ["Black", "Silver", "Gold"];
@@ -79,6 +83,8 @@ function App() {
     open,
     toggleCartPanel,
     openAlertBox,
+    isLogin,
+    setIsLogin,
   };
   return (
     <>
@@ -93,6 +99,8 @@ function App() {
           <Route path={"/cart"} element={<CartPage />} />
           <Route path={"/verify"} element={<Verify />} />
           <Route path={"/forgotPassword"} element={<ForgotPassword />} />
+          <Route path={"/checkout"} element={<Checkout />} />
+          <Route path={"/my-account"} element={<MyAccount />} />
         </Routes>
         <Footer classname="ads" />
       </MyContext.Provider>

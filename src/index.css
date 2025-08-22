@@ -330,3 +330,8 @@ nav button:hover {
 .cartPanel .MuiPaper-root {
   width: 500px;
 }
+#account-menu .MuiPaper-root {
+  width: 200px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}

@@ -1,14 +1,9 @@
 import React, { useContext, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa6";
-import { Divider, Typography } from "@mui/material";
 import { MyContext } from "../../App";
 import secure from "../../assets/secure.png";
 
