@@ -53,7 +53,6 @@ const Login = () => {
                 className="!mt-5"
               />
               <Button
-                type="submit"
                 className="!absolute top-[10px] right-[5px] z-50 !w-[35px] !h-[35px] !min-w-[35px] !rounded-full"
                 onClick={() => setShowPassword(!showPassword)}
               >

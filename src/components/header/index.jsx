@@ -11,6 +11,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import Tooltip from "@mui/material/Tooltip";
 import Navigation from "./navigation";
 import { MyContext } from "../../App";
+import logo from "../../assets/gpt.png";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -62,11 +63,7 @@ const Header = () => {
         <div className="container flex items-center justify-between">
           <div className="col1 w-[20%]">
             <Link to="/">
-              <img
-                src="../src/assets/gpt.png
-              "
-                className="w-[50%]"
-              />
+              <img src={logo} className="w-[50%]" />
             </Link>
           </div>
           <div className="col2 w-[50%]">

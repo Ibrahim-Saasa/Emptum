@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/header";
 import Footer from "./components/Footer/Footer.jsx";
 import "./index.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, HashRouter } from "react-router-dom";
 import Home from "./Pages/Home";
 import ProductListing from "./Pages/ProductListing/ProductListing";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails.jsx";
@@ -82,34 +82,22 @@ function App() {
   };
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <MyContext.Provider value={values}>
           <Header />
           <Routes>
-            <Route path={"/"} exact={true} element={<Home />} />
-            <Route
-              path={"/ProductListing"}
-              exact={true}
-              element={<ProductListing />}
-            />
-            <Route
-              path={"/ProductDetails/:id"}
-              exact={true}
-              element={<ProductDetails />}
-            />
-            <Route path={"/login"} exact={true} element={<Login />} />
-            <Route path={"/register"} exact={true} element={<Register />} />
-            <Route path={"/cart"} exact={true} element={<CartPage />} />
-            <Route path={"/verify"} exact={true} element={<Verify />} />
-            <Route
-              path={"/forgotPassword"}
-              exact={true}
-              element={<ForgotPassword />}
-            />
+            <Route path={"/"} element={<Home />} />
+            <Route path={"/ProductListing"} element={<ProductListing />} />
+            <Route path={"/ProductDetails/:id"} element={<ProductDetails />} />
+            <Route path={"/login"} element={<Login />} />
+            <Route path={"/register"} element={<Register />} />
+            <Route path={"/cart"} element={<CartPage />} />
+            <Route path={"/verify"} element={<Verify />} />
+            <Route path={"/forgotPassword"} element={<ForgotPassword />} />
           </Routes>
           <Footer classname="ads" />
         </MyContext.Provider>
-      </BrowserRouter>
+      </HashRouter>
       <Toaster />
       <Dialog
         open={openProductDetailModal}
