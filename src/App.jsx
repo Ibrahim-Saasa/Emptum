@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/header";
 import Footer from "./components/Footer/Footer.jsx";
 import "./index.css";
-import { BrowserRouter, Route, Routes, HashRouter } from "react-router-dom";
+import { Route, Routes, HashRouter } from "react-router-dom";
 import Home from "./Pages/Home";
 import ProductListing from "./Pages/ProductListing/ProductListing";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails.jsx";
@@ -90,37 +90,39 @@ function App() {
   return (
     <>
       <div className="App">
-        <HashRouter>
-          <MyContext.Provider value={values}>
-            <Header />
-            <main>
-              <Routes>
-                <Route path={"/"} element={<Home />} />
-                <Route path={"/ProductListing"} element={<ProductListing />} />
-                <Route
-                  path={"/ProductDetails/:id"}
-                  element={<ProductDetails />}
-                />
-                <Route path={"/login"} element={<Login />} />
-                <Route path={"/register"} element={<Register />} />
-                <Route path={"/cart"} element={<CartPage />} />
-                <Route path={"/verify"} element={<Verify />} />
-                <Route path={"/forgotPassword"} element={<ForgotPassword />} />
-                <Route path={"/checkout"} element={<Checkout />} />
-                <Route path={"/my-account"} element={<MyAccount />} />
-                <Route path={"/my-list"} element={<MyList />} />
-              </Routes>
-            </main>
-            <Footer classname="ads" />
-          </MyContext.Provider>
-        </HashRouter>
+        <MyContext.Provider value={values}>
+          <Header />
+          <main>
+            <Routes>
+              <Route path={"/"} element={<Home />} />
+              <Route path={"/ProductListing"} element={<ProductListing />} />
+              <Route
+                path={"/ProductDetails/:id"}
+                element={<ProductDetails />}
+              />
+              <Route path={"/login"} element={<Login />} />
+              <Route path={"/register"} element={<Register />} />
+              <Route path={"/cart"} element={<CartPage />} />
+              <Route path={"/verify"} element={<Verify />} />
+              <Route path={"/forgotPassword"} element={<ForgotPassword />} />
+              <Route path={"/checkout"} element={<Checkout />} />
+              <Route path={"/my-account"} element={<MyAccount />} />
+              <Route path={"/my-list"} element={<MyList />} />
+            </Routes>
+          </main>
+          <Footer classname="ads" />
+        </MyContext.Provider>
 
         <Toaster />
         <Dialog
+          // open={openProductDetailModal}
+          // onClose={handleCloseProductDetailModal}
+          // fullWidth={handleFullWidthChange}
+          // maxWidth={handleMaxWidthChange}
           open={openProductDetailModal}
           onClose={handleCloseProductDetailModal}
-          fullWidth={handleFullWidthChange}
-          maxWidth={handleMaxWidthChange}
+          fullWidth
+          maxWidth="lg"
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           className="productDetailsModal"
