@@ -170,24 +170,30 @@ const Header = () => {
                         <FaRegUserCircle className="text-[18px] " /> My Account
                       </MenuItem>
                     </Link>
-                    <MenuItem
-                      onClick={handleClose}
-                      className="flex gap-2 !py-2 hover:!text-[#0c8563]"
-                    >
-                      <FaShoppingBag className="text-[18px] " /> Orders
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleClose}
-                      className="flex gap-2 !py-2 hover:!text-[#0c8563]"
-                    >
-                      <IoMdSettings className="text-[18px] " /> Settings
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleClose}
-                      className="flex gap-2 !py-2 hover:!text-[#0c8563]"
-                    >
-                      <IoLogOutOutline className="text-[18px] " /> Logout
-                    </MenuItem>
+                    <Link to="/my-orders" className="w-full block">
+                      <MenuItem
+                        onClick={handleClose}
+                        className="flex gap-2 !py-2 hover:!text-[#0c8563]"
+                      >
+                        <FaShoppingBag className="text-[18px] " /> Orders
+                      </MenuItem>
+                    </Link>
+                    <Link to="/settings" className="w-full block">
+                      <MenuItem
+                        onClick={handleClose}
+                        className="flex gap-2 !py-2 hover:!text-[#0c8563]"
+                      >
+                        <IoMdSettings className="text-[18px] " /> Settings
+                      </MenuItem>
+                    </Link>
+                    <Link to="/logout" className="w-full block">
+                      <MenuItem
+                        onClick={handleClose}
+                        className="flex gap-2 !py-2 hover:!text-[#0c8563]"
+                      >
+                        <IoLogOutOutline className="text-[18px] " /> Logout
+                      </MenuItem>
+                    </Link>
                   </Menu>
                 </>
               )}

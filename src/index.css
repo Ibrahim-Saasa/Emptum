@@ -335,3 +335,58 @@ nav button:hover {
   align-items: center !important;
   justify-content: center !important;
 }
+.myAccountTabs li a {
+  position: relative;
+  display: block;
+  padding: 0px 0px;
+}
+.myAccountTabs li a:before {
+  content: "";
+  width: 3px;
+  height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  background: #0c8563;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+}
+.myAccountTabs li a.active::before {
+  height: 100%;
+  opacity: 1;
+  top: 0px;
+}
+.MuiPickersInputBase-root {
+  background-color: rgba(0, 0, 0, 0.06);
+  height: 50px;
+  width: 100%;
+}
+#demo-simple-select-filled {
+  background-color: rgba(0, 0, 0, 0.06);
+  height: 2px !important;
+}
+.custom-country-input {
+  /* background-color: rgba(0, 0, 0, 0.06);  */
+  border-radius: 4px;
+  border: none !important;
+  padding: 12px;
+  font-size: 16px;
+  width: 100%;
+}
+.nation {
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+}
+.form-btn.btn-border {
+  background: rgba(0, 0, 0, 0.06) !important;
+  color: #0c8563 !important;
+  font-weight: 500;
+  border: 1px solid #0c8563 !important;
+  font-size: 16px;
+  padding: 7px 20px !important;
+}
+.form-btn.btn-border:hover {
+  background: #0c8563 !important;
+  color: #f1f1f1 !important;
+  border: 1px solid #0c8563 !important;
+}

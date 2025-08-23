@@ -23,6 +23,7 @@ import toast, { Toaster } from "react-hot-toast";
 import ForgotPassword from "./Pages/ForgotPassword/Login.jsx";
 import Checkout from "./Pages/Checkout/Checkout.jsx";
 import MyAccount from "./Pages/myAccount/MyAccount.jsx";
+import MyList from "./Pages/myList/index.jsx";
 
 const MyContext = createContext();
 
@@ -107,6 +108,7 @@ function App() {
                 <Route path={"/forgotPassword"} element={<ForgotPassword />} />
                 <Route path={"/checkout"} element={<Checkout />} />
                 <Route path={"/my-account"} element={<MyAccount />} />
+                <Route path={"/my-list"} element={<MyList />} />
               </Routes>
             </main>
             <Footer classname="ads" />
