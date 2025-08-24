@@ -24,6 +24,7 @@ import ForgotPassword from "./Pages/ForgotPassword/Login.jsx";
 import Checkout from "./Pages/Checkout/Checkout.jsx";
 import MyAccount from "./Pages/myAccount/MyAccount.jsx";
 import MyList from "./Pages/myList/index.jsx";
+import MyOrders from "./Pages/myOrders/MyOrders.jsx";
 
 const MyContext = createContext();
 
@@ -108,6 +109,7 @@ function App() {
               <Route path={"/checkout"} element={<Checkout />} />
               <Route path={"/my-account"} element={<MyAccount />} />
               <Route path={"/my-list"} element={<MyList />} />
+              <Route path={"/my-orders"} element={<MyOrders />} />
             </Routes>
           </main>
           <Footer classname="ads" />
