@@ -15,26 +15,86 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
 
-function createData(name, calories, fat, carbs, protein, price) {
+// Function to generate random order ID
+function generateOrderId() {
+  return "ORD-" + Math.random().toString(36).substr(2, 9).toUpperCase();
+}
+
+// Function to generate random payment ID
+function generatePaymentId() {
+  return "PAY-" + Math.random().toString(36).substr(2, 8).toUpperCase();
+}
+
+// Function to generate random order date
+function generateOrderDate() {
+  const start = new Date(2024, 0, 1); // Jan 1, 2024
+  const end = new Date(); // Current date
+  const randomDate = new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+  return randomDate.toISOString().split("T")[0]; // Format: YYYY-MM-DD
+}
+
+// Function to generate order status
+function generateOrderStatus() {
+  const statuses = [
+    "Delivered",
+    "In Transit",
+    "Processing",
+    "Shipped",
+    "Pending",
+  ];
+  return statuses[Math.floor(Math.random() * statuses.length)];
+}
+
+function createData(productName, orderTotal) {
+  const trackingEvents = [
+    "Order Placed",
+    "Payment Confirmed",
+    "Item Picked from Warehouse",
+    "Shipped from Facility",
+    "Out for Delivery",
+    "Delivered",
+  ];
+
+  const generateTrackingInfo = () => {
+    const numEvents = Math.floor(Math.random() * 4) + 3; // 3-6 events
+    const events = [];
+    const baseDate = new Date(generateOrderDate());
+
+    for (let i = 0; i < numEvents; i++) {
+      const eventDate = new Date(baseDate);
+      eventDate.setDate(baseDate.getDate() + i);
+
+      events.push({
+        date: eventDate.toISOString().split("T")[0],
+        time: `${Math.floor(Math.random() * 12) + 1}:${Math.floor(
+          Math.random() * 60
+        )
+          .toString()
+          .padStart(2, "0")} ${Math.random() > 0.5 ? "AM" : "PM"}`,
+        event: trackingEvents[i] || "In Transit",
+        location:
+          i < 2
+            ? "Processing Center"
+            : i < 4
+            ? `Facility - ${
+                ["NY", "CA", "TX", "FL"][Math.floor(Math.random() * 4)]
+              }`
+            : "Local Delivery Hub",
+      });
+    }
+    return events;
+  };
+
   return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: "2020-01-05",
-        customerId: "11091700",
-        amount: 3,
-      },
-      {
-        date: "2020-01-02",
-        customerId: "Anonymous",
-        amount: 1,
-      },
-    ],
+    orderId: generateOrderId(),
+    paymentId: generatePaymentId(),
+    productName,
+    orderDate: generateOrderDate(),
+    orderStatus: generateOrderStatus(),
+    orderTotal: orderTotal || (Math.random() * 200 + 20).toFixed(2),
+    tracking: generateTrackingInfo(),
   };
 }
 
@@ -55,40 +115,39 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.name}
+          {row.orderId}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="center">{row.paymentId}</TableCell>
+        <TableCell align="center">{row.productName}</TableCell>
+        <TableCell align="center">{row.orderDate}</TableCell>
+        <TableCell align="center">{row.orderStatus}</TableCell>
+        <TableCell align="center">${row.orderTotal}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                Order Tracking
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small" aria-label="order tracking">
                 <TableHead>
-                  <TableRow>
+                  <TableRow align="center">
                     <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell>Time</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>Location</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
+                  {row.tracking.map((trackingEvent, index) => (
+                    <TableRow key={`${trackingEvent.date}-${index}`}>
                       <TableCell component="th" scope="row">
-                        {historyRow.date}
+                        {trackingEvent.date}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
+                      <TableCell>{trackingEvent.time}</TableCell>
+                      <TableCell>{trackingEvent.event}</TableCell>
+                      <TableCell>{trackingEvent.location}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -103,28 +162,31 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
+    orderId: PropTypes.string.isRequired,
+    paymentId: PropTypes.string.isRequired,
+    productName: PropTypes.string.isRequired,
+    orderDate: PropTypes.string.isRequired,
+    orderStatus: PropTypes.string.isRequired,
+    orderTotal: PropTypes.string.isRequired,
+    tracking: PropTypes.arrayOf(
       PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
+        time: PropTypes.string.isRequired,
+        event: PropTypes.string.isRequired,
+        location: PropTypes.string.isRequired,
       })
     ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
   }).isRequired,
 };
 
 const rows = [
-  createData("Victorinox Watch", 159, 6.0, 24, 4.0, 3.99),
-  createData("Leather Bag", 237, 9.0, 37, 4.3, 4.99),
-  createData("Roll Mat", 262, 16.0, 24, 6.0, 3.79),
-  createData("Microwave", 305, 3.7, 67, 4.3, 2.5),
-  createData("Shoes", 356, 16.0, 49, 3.9, 1.5),
+  createData("Victorinox Watch", "159.99"),
+  createData("Leather Bag", "89.50"),
+  createData("Yoga Mat", "45.99"),
+  createData("Microwave Oven", "189.99"),
+  createData("Running Shoes", "129.99"),
+  createData("Bluetooth Speaker", "79.99"),
+  createData("Coffee Maker", "149.99"),
 ];
 
 export default function CollapsibleTable() {
@@ -134,16 +196,17 @@ export default function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>OrderID</TableCell>
-            <TableCell align="right">PaymentID</TableCell>
-            <TableCell align="right">Products</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">PhoneNo.</TableCell>
+            <TableCell align="center">Order ID</TableCell>
+            <TableCell align="center">Payment ID</TableCell>
+            <TableCell align="center">Product</TableCell>
+            <TableCell align="center">Order Date</TableCell>
+            <TableCell align="center">Status</TableCell>
+            <TableCell align="center">Total Amount</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
+          {rows.map((row, index) => (
+            <Row key={`${row.orderId}-${index}`} row={row} />
           ))}
         </TableBody>
       </Table>

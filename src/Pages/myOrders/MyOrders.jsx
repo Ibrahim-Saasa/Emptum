@@ -12,11 +12,8 @@ const MyOrders = () => {
         </div>
         <div className="rightPart w-[75%] shadow-[0_0_15px_rgba(0,0,0,0.3)]">
           <div className="rounded-md  !p-5 bg-[#fff0f5]">
-            <h2 className="font-[600]">My List</h2>
-            <p className="!mt-0 !pb-5">
-              There are <span className="font-bold text-[#0c8563] ">2</span>{" "}
-              Products in your list
-            </p>
+            <h2 className="font-[600]">My Orders</h2>
+            <p className="!mt-0 !pb-5">Orders:</p>
             <Divider className="divider" />
             <div className=" !w-full !p-6 rounded-md">
               <CollapsibleTable />
