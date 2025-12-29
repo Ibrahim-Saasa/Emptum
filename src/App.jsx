@@ -29,6 +29,7 @@ import MyOrders from "./Pages/myOrders/MyOrders.jsx";
 const MyContext = createContext();
 
 function App() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [openProductDetailModal, setOpenProductDetailModal] = useState(false);
   const productImages = [
     "https://m.media-amazon.com/images/I/41BO9xuN4+L._MCnd_AC_.jpg",
@@ -71,6 +72,7 @@ function App() {
   };
 
   const openAlertBox = (status, msg) => {
+    console.log(status.type);
     if (status === "success") {
       toast.success(msg);
     }

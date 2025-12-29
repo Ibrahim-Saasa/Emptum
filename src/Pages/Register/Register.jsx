@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { IoMdEye } from "react-icons/io";
@@ -11,12 +11,67 @@ import "react-phone-input-2/lib/style.css";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Divider, Typography } from "@mui/material";
+import { postData } from "../api";
+import { MyContext } from "../../App";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
 
-  const [phone, setPhone] = useState("");
+  const [formFields, setFormFields] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const context = useContext(MyContext);
+
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormFields(() => {
+      return {
+        ...formFields,
+        [name]: value,
+      };
+    });
+  };
+
+  const { confirmPassword, ...payload } = formFields;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (formFields.name === "") {
+      context.openAlertBox("error", "Please add full name!");
+      return;
+    }
+    if (!formFields.phone || formFields.phone.length < 10) {
+      context.openAlertBox("error", "Invalid phone number");
+      return;
+    }
+    if (formFields.email === "") {
+      context.openAlertBox("error", "Please add Email!");
+      return;
+    }
+    if (formFields.password === "") {
+      context.openAlertBox("error", "Please enter password!");
+      return;
+    }
+    if (formFields.password.length < 12) {
+      context.openAlertBox("error", "The Password should have 12 characters!");
+      return;
+    }
+    if (formFields.password !== formFields.confirmPassword) {
+      context.openAlertBox("error", "Passwords do not match!");
+      return;
+    }
+
+    postData("/api/users/register", payload).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <section className="section !py-10">
@@ -25,21 +80,32 @@ const Register = () => {
           <h3 className="text-center text-[18px] text-[#000] font-[500]">
             Sign Up
           </h3>
-          <form className="w-full !mt-5">
+          <form className="w-full !mt-5" onSubmit={handleSubmit}>
             <div className="form-group w-full !mb-5 ">
               <TextField
                 type="text"
                 id="name"
+                name="name"
                 label="Full Name"
                 variant="filled"
                 className="w-full !mb-5"
+                onChange={onChangeInput}
               />
 
               <PhoneInput
                 country={null} // default country
-                value={phone}
-                onChange={setPhone}
+                value={formFields.phone}
+                onChange={(value, country) => {
+                  console.log("phone:", value);
+                  setFormFields((prev) => ({
+                    ...prev,
+                    phone: value,
+                    countryCode: country?.countryCode,
+                  }));
+                }}
                 enableSearch
+                phone="phone"
+                name="phone"
                 inputClass="mui-input custom-phone-input"
                 buttonClass="mui-button"
                 containerClass="mui-container"
@@ -57,18 +123,22 @@ const Register = () => {
               <TextField
                 type="email"
                 id="email"
+                name="email"
                 label="Email Id"
                 variant="filled"
                 className="w-full !mt-5"
+                onChange={onChangeInput}
               />
             </div>
             <div className="form-group w-full relative">
               <TextField
                 type={showPassword === false ? "password" : "text"}
                 id="password"
+                name="password"
                 label="Password"
                 variant="filled"
                 className="w-full !mb-5"
+                onChange={onChangeInput}
               />
 
               <Button
@@ -86,9 +156,11 @@ const Register = () => {
               <TextField
                 type={showPassword2 === false ? "password" : "text"}
                 id="confirmPassword"
+                name="confirmPassword"
                 label="Confirm Password"
                 variant="filled"
                 className="w-full"
+                onChange={onChangeInput}
               />
               <Button
                 className="!absolute top-[10px] right-[5px] z-50 !w-[35px] !h-[35px] !min-w-[35px] !rounded-full"
@@ -108,7 +180,9 @@ const Register = () => {
             </div>
 
             <div className="flex items-center w-full !mt-5 !mb-5">
-              <Button className="form-btn w-full">Sign Up</Button>
+              <Button type="submit" className="form-btn w-full">
+                Sign Up
+              </Button>
             </div>
             <p className="text-center !mb-5">
               Already Have an Account{" "}
