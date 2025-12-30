@@ -3,18 +3,28 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa6";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Divider, Typography } from "@mui/material";
 import { postData } from "../api";
 import { MyContext } from "../../App";
 
 const Register = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
 
@@ -27,8 +37,11 @@ const Register = () => {
   });
 
   const context = useContext(MyContext);
+  const history = useNavigate();
 
   const onChangeInput = (e) => {
+    e.preventDefault();
+
     const { name, value } = e.target;
     setFormFields(() => {
       return {
@@ -38,9 +51,11 @@ const Register = () => {
     });
   };
 
+  const validValue = Object.values(formFields).every((el) => el);
+
   const { confirmPassword, ...payload } = formFields;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formFields.name === "") {
@@ -68,9 +83,38 @@ const Register = () => {
       return;
     }
 
-    postData("/api/users/register", payload).then((res) => {
-      console.log(res);
-    });
+    // Start loading
+    setIsLoading(true);
+    setOpen(true); // Open the backdrop
+
+    try {
+      const res = await postData("/api/users/register", payload);
+      console.log("Response:", res);
+
+      if (res.success) {
+        context.openAlertBox("success", res.message);
+        localStorage.setItem("userEmail", formFields.email);
+        setFormFields({
+          name: "",
+          email: "",
+          phone: "",
+          password: "",
+          confirmPassword: "",
+        });
+
+        history("/verify");
+        // Navigate to verify email or login
+      } else {
+        context.openAlertBox("error", res.message || "Registration failed");
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      context.openAlertBox("error", "Something went wrong!");
+    } finally {
+      // Stop loading
+      setIsLoading(false);
+      setOpen(false); // Close the backdrop
+    }
   };
 
   return (
@@ -86,6 +130,7 @@ const Register = () => {
                 type="text"
                 id="name"
                 name="name"
+                value={formFields.name}
                 label="Full Name"
                 variant="filled"
                 className="w-full !mb-5"
@@ -124,6 +169,7 @@ const Register = () => {
                 type="email"
                 id="email"
                 name="email"
+                value={formFields.email}
                 label="Email Id"
                 variant="filled"
                 className="w-full !mt-5"
@@ -135,6 +181,7 @@ const Register = () => {
                 type={showPassword === false ? "password" : "text"}
                 id="password"
                 name="password"
+                value={formFields.password}
                 label="Password"
                 variant="filled"
                 className="w-full !mb-5"
@@ -157,6 +204,7 @@ const Register = () => {
                 type={showPassword2 === false ? "password" : "text"}
                 id="confirmPassword"
                 name="confirmPassword"
+                value={formFields.confirmPassword}
                 label="Confirm Password"
                 variant="filled"
                 className="w-full"
@@ -180,10 +228,27 @@ const Register = () => {
             </div>
 
             <div className="flex items-center w-full !mt-5 !mb-5">
-              <Button type="submit" className="form-btn w-full">
-                Sign Up
+              <Button
+                type="submit"
+                disabled={!validValue || isLoading} // ✅ Disable during loading
+                className="form-btn w-full"
+                // ❌ Remove onClick={handleOpen}
+              >
+                {isLoading ? "Signing Up..." : "Sign Up"}{" "}
+                {/* ✅ Show loading text */}
               </Button>
             </div>
+
+            {/* ✅ Put Backdrop OUTSIDE the button, at the bottom of your component */}
+            <Backdrop
+              sx={(theme) => ({
+                color: "#fff",
+                zIndex: theme.zIndex.drawer + 1,
+              })}
+              open={open}
+            >
+              <CircularProgress color="inherit" />
+            </Backdrop>
             <p className="text-center !mb-5">
               Already Have an Account{" "}
               <Link

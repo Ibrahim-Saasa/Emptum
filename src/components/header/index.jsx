@@ -22,6 +22,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FaShoppingBag } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
+import { fetchDataFromApi } from "../../Pages/api";
+import App from "../../App";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -35,13 +37,30 @@ const Header = () => {
   const context = useContext(MyContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const logout = () => {
+    setAnchorEl(null);
+    fetchDataFromApi(
+      `/api/users/logout?token=${localStorage.getItem("accessToken")}`,
+      {
+        withCredentials: true,
+      }
+    ).then((res) => {
+      console.log(res);
+      if (res?.error === false) {
+        context.setIsLogin(false);
+        localStorage.removeItem("accessToken", res?.data?.accessToken);
+        localStorage.removeItem("refreshToken", res?.data?.refreshToken);
+        navigate("/#");
+      }
+    });
+  };
   return (
     <header>
       <div className="top-strip py-2 border-t-[1px] border-green-200 border-b-[1px]">
@@ -116,10 +135,10 @@ const Header = () => {
                     </Button>
                     <div className="info flex flex-col">
                       <h4 className="leading-3 text-[14px] font-[500] capitalize text-left justify-start text-[#000]">
-                        Ibrahim Saasa
+                        {context?.userData?.name}
                       </h4>
                       <span className="text-[12px] capitalize text-left justify-start text-[#000]">
-                        ibrahimsaasa@gmail.com
+                        {context?.userData?.email}
                       </span>
                     </div>
                   </Button>
@@ -186,14 +205,13 @@ const Header = () => {
                         <IoMdSettings className="text-[18px] " /> Settings
                       </MenuItem>
                     </Link>
-                    <Link to="/logout" className="w-full block">
-                      <MenuItem
-                        onClick={handleClose}
-                        className="flex gap-2 !py-2 hover:!text-[#0c8563]"
-                      >
-                        <IoLogOutOutline className="text-[18px] " /> Logout
-                      </MenuItem>
-                    </Link>
+
+                    <MenuItem
+                      onClick={logout}
+                      className="flex gap-2 !py-2 hover:!text-[#0c8563]"
+                    >
+                      <IoLogOutOutline className="text-[18px] " /> Logout
+                    </MenuItem>
                   </Menu>
                 </>
               )}

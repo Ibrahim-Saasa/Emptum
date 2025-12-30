@@ -6,7 +6,7 @@ import { Route, Routes, HashRouter } from "react-router-dom";
 import Home from "./Pages/Home";
 import ProductListing from "./Pages/ProductListing/ProductListing";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails.jsx";
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -25,6 +25,7 @@ import Checkout from "./Pages/Checkout/Checkout.jsx";
 import MyAccount from "./Pages/myAccount/MyAccount.jsx";
 import MyList from "./Pages/myList/index.jsx";
 import MyOrders from "./Pages/myOrders/MyOrders.jsx";
+import { fetchDataFromApi } from "./Pages/api.js";
 
 const MyContext = createContext();
 
@@ -40,7 +41,7 @@ function App() {
   const [selectedSize, setSelectedSize] = useState("42mm");
   const [selectedColor, setSelectedColor] = useState("Black");
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   const sizes = ["38mm", "42mm", "45mm"];
   const colors = ["Black", "Silver", "Gold"];
@@ -50,7 +51,7 @@ function App() {
   const handleClickOpenProductDetailModal = () => {
     setOpenProductDetailModal(true);
   };
-
+  const [userData, setUserData] = useState(null);
   const handleCloseProductDetailModal = () => {
     setOpenProductDetailModal(false);
   };
@@ -71,6 +72,19 @@ function App() {
     setOpen(newOpen);
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token !== undefined && token !== null && token !== "") {
+      setIsLogin(true);
+      fetchDataFromApi(`/api/users/userDetails?token=${token}`).then((res) => {
+        console.log(res);
+        setUserData(res.data);
+      });
+    } else {
+      setIsLogin(false);
+    }
+  }, [isLogin]);
+
   const openAlertBox = (status, msg) => {
     console.log(status.type);
     if (status === "success") {
@@ -89,6 +103,8 @@ function App() {
     openAlertBox,
     isLogin,
     setIsLogin,
+    userData,
+    setUserData,
   };
   return (
     <>

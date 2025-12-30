@@ -84,58 +84,58 @@ const ProductDetails = () => {
                   <table class="border-collapse w-full table-fixed">
                     <tbody>
                       <tr>
-                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                        <td className="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
                           Case Diameter
                         </td>
-                        <td class="border border-gray-400 !px-4 !py-2">
+                        <td className="border border-gray-400 !px-4 !py-2">
                           42 Milimeters
                         </td>
                       </tr>
                       <tr>
-                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                        <td className="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
                           Band colour
                         </td>
-                        <td class="border border-gray-400 !px-4 !py-2">
+                        <td className="border border-gray-400 !px-4 !py-2">
                           Black
                         </td>
                       </tr>
                       <tr>
-                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                        <td className="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
                           Band material type
                         </td>
-                        <td class="border border-gray-400 !px-4 !py-2">
+                        <td className="border border-gray-400 !px-4 !py-2">
                           Leather
                         </td>
                       </tr>
                       <tr>
-                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                        <td className="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
                           Warranty type
                         </td>
-                        <td class="border border-gray-400 !px-4 !py-2">
+                        <td className="border border-gray-400 !px-4 !py-2">
                           Manufacturer
                         </td>
                       </tr>
                       <tr>
-                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                        <td className="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
                           Watch movement type
                         </td>
-                        <td class="border border-gray-400 !px-4 !py-2">
+                        <td className="border border-gray-400 !px-4 !py-2">
                           Swiss Automatic
                         </td>
                       </tr>
                       <tr>
-                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                        <td className="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
                           Swiss Automatic
                         </td>
-                        <td class="border border-gray-400 !px-4 !py-2">
+                        <td className="border border-gray-400 !px-4 !py-2">
                           97 Grams
                         </td>
                       </tr>
                       <tr>
-                        <td class="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
+                        <td className="border text-[15px] font-[700] border-gray-400 !px-4 !py-2">
                           Item weight
                         </td>
-                        <td class="border border-gray-400 !px-4 !py-2">
+                        <td className="border border-gray-400 !px-4 !py-2">
                           Switzerland
                         </td>
                       </tr>
