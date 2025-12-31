@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import insurance from "../../assets/insurance.png";
 import OTPVerification from "../../components/OtpVerification/OtpVerification";
-import { postData } from "../api"; // ✅ Import postData
+import { postData } from "../../utils/api"; // ✅ Import postData
 import { MyContext } from "../../App"; // ✅ Import context for alerts
 import { useNavigate } from "react-router-dom"; // ✅ For navigation
 
@@ -19,9 +19,10 @@ const Verify = () => {
     e.preventDefault();
 
     const email = localStorage.getItem("userEmail");
+    const actionType = localStorage.getItem("actionType"); // Check if it's email verification or forgot password
 
     if (!email) {
-      context.openAlertBox("error", "Email not found. Please register again.");
+      context.openAlertBox("error", "Email not found. Please try again.");
       return;
     }
 
@@ -33,20 +34,36 @@ const Verify = () => {
     setIsLoading(true);
 
     try {
-      const res = await postData("/api/users/verify-email", {
+      let endpoint = "/api/users/verify-email"; // Default for email verification
+
+      // If forgot password, use different endpoint
+      if (actionType === "forgotPassword") {
+        endpoint = "/api/users/forgotPasswordOtp";
+      }
+
+      const res = await postData(endpoint, {
         email: email,
-        verifyCode: otp, // ✅ Changed from 'otp' to 'verifyCode'
+        verifyCode: otp,
       });
 
       console.log("Verify Response:", res);
 
       if (res.success) {
-        // Removed the '.data'
         context.openAlertBox("success", res.message);
-        localStorage.removeItem("userEmail");
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
+
+        if (actionType === "forgotPassword") {
+          // Navigate to reset password page
+          localStorage.removeItem("actionType");
+          setTimeout(() => {
+            navigate("/forgotPassword");
+          }, 1500);
+        } else {
+          // Navigate to login for email verification
+          localStorage.removeItem("userEmail");
+          setTimeout(() => {
+            navigate("/login");
+          }, 1500);
+        }
       } else {
         context.openAlertBox("error", res.message || "Verification failed");
       }
@@ -75,15 +92,16 @@ const Verify = () => {
             </span>
           </p>
           <form onSubmit={verifyOTP}>
-            {/* This now correctly passes the string and receiving updates */}
-            <OTPVerification onChange={(val) => setOtp(val)} value={otp} />
-
+            <OTPVerification
+              onChange={handleOtpChange} // Pass the handler
+              value={otp}
+            />
             <button
               type="submit"
               disabled={isLoading || otp.length !== 6}
-              className="form-btn !p-2 rounded-[5px] w-full !mt-5"
+              className="form-btn !p-3 rounded-[5px] w-full !mt-5"
             >
-              {isLoading ? "Verifying..." : "VERIFY"}
+              {isLoading ? "Verifying..." : "Verify OTP"}
             </button>
           </form>
         </div>

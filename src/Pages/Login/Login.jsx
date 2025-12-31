@@ -10,7 +10,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa6";
 import { Divider, Typography } from "@mui/material";
 import { MyContext } from "../../App";
-import { postData } from "../api";
+import { postData } from "../../utils/api";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -21,15 +21,40 @@ const Login = () => {
   const [formFields, setFormFields] = useState({ email: "", password: "" });
   const history = useNavigate();
   const context = useContext(MyContext);
-  const forgotPassword = () => {
+
+  const forgotPassword = async () => {
     if (formFields.email === "") {
       context.openAlertBox("error", "Please enter your Email");
-      return false;
-    } else {
-      context.openAlertBox("success", "Please enter the code");
-      localStorage.setItem("userEmail", formFields.email);
-      localStorage.setItem("userEmail", formFields.email);
-      history("/verify");
+      return;
+    }
+
+    setIsLoading(true);
+    setOpen(true);
+
+    try {
+      // Step 1: Request OTP from backend
+      const res = await postData("/api/users/forgotPassword", {
+        email: formFields.email,
+      });
+
+      console.log("Forgot Password Response:", res);
+
+      if (res.success) {
+        context.openAlertBox("success", "OTP sent to your email!");
+        // Save email and action type for verification page
+        localStorage.setItem("userEmail", formFields.email);
+        localStorage.setItem("actionType", "forgotPassword");
+        // Navigate to verify page
+        history("/verify");
+      } else {
+        context.openAlertBox("error", res.message || "Failed to send OTP");
+      }
+    } catch (error) {
+      console.error("Forgot Password error:", error);
+      context.openAlertBox("error", "Something went wrong!");
+    } finally {
+      setIsLoading(false);
+      setOpen(false);
     }
   };
 
@@ -138,13 +163,13 @@ const Login = () => {
               </Button>
             </div>
 
-            <Link
-              to="/verify"
-              className="link text-[14px] font-[600]"
+            <button
+              type="button"
+              className="link text-[14px] font-[600] text-[#0c8563] bg-transparent border-none cursor-pointer"
               onClick={forgotPassword}
             >
               Forgot Password?
-            </Link>
+            </button>
             <div className="flex items-center w-full !mt-5 !mb-5">
               <Button
                 type="submit"

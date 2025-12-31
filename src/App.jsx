@@ -25,7 +25,7 @@ import Checkout from "./Pages/Checkout/Checkout.jsx";
 import MyAccount from "./Pages/myAccount/MyAccount.jsx";
 import MyList from "./Pages/myList/index.jsx";
 import MyOrders from "./Pages/myOrders/MyOrders.jsx";
-import { fetchDataFromApi } from "./Pages/api.js";
+import { fetchDataFromApi } from "./utils/api.js";
 
 const MyContext = createContext();
 
@@ -76,7 +76,7 @@ function App() {
     const token = localStorage.getItem("accessToken");
     if (token !== undefined && token !== null && token !== "") {
       setIsLogin(true);
-      fetchDataFromApi(`/api/users/userDetails?token=${token}`).then((res) => {
+      fetchDataFromApi(`/api/users/userDetails`).then((res) => {
         console.log(res);
         setUserData(res.data);
       });

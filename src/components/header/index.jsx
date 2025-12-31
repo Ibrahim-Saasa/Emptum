@@ -22,7 +22,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FaShoppingBag } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
-import { fetchDataFromApi } from "../../Pages/api";
+import { fetchDataFromApi } from "../../utils/api";
 import App from "../../App";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({

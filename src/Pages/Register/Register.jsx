@@ -13,7 +13,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Divider, Typography } from "@mui/material";
-import { postData } from "../api";
+import { postData } from "../../utils/api";
 import { MyContext } from "../../App";
 
 const Register = () => {
