@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import me from "../../assets/me.jpg";
 import { LuUpload } from "react-icons/lu";
 import { Button, Divider, TextField } from "@mui/material";
@@ -7,7 +7,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import { FaShoppingBag } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -19,13 +19,21 @@ import FormControl from "@mui/material/FormControl";
 import { CountrySelect } from "react-country-state-city";
 import "react-country-state-city/dist/react-country-state-city.css";
 import AccountSideBar from "../../components/AccountSideBar/AccountSideBar";
+import { MyContext } from "../../App";
 
 const MyAccount = () => {
+  const navigate = useNavigate();
+  const context = useContext(MyContext);
   const [phone, setPhone] = useState("");
   const [dob, setDob] = useState(null);
   const [gender, setGender] = useState("");
   const [nationality, setNationality] = useState(null);
-
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token === null) {
+      navigate("/");
+    }
+  }, [context?.isLogin]);
   const handleChange = (event) => {
     setAge(event.target.value);
   };

@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#0c8563", // ✅ FIXED: only one #
+        primary: "#0c8563",
       },
     },
   },

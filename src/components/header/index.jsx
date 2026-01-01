@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
@@ -22,7 +22,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FaShoppingBag } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
-import { fetchDataFromApi } from "../../utils/api";
+import { fetchDataFromApi } from "../../utils/api.js";
 import App from "../../App";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -34,6 +34,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 const Header = () => {
+  const navigate = useNavigate();
   const context = useContext(MyContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -44,23 +45,26 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const logout = () => {
+  const logout = async () => {
     setAnchorEl(null);
-    fetchDataFromApi(
-      `/api/users/logout?token=${localStorage.getItem("accessToken")}`,
-      {
+
+    try {
+      await fetchDataFromApi("/api/users/logout", {
         withCredentials: true,
-      }
-    ).then((res) => {
-      console.log(res);
-      if (res?.error === false) {
-        context.setIsLogin(false);
-        localStorage.removeItem("accessToken", res?.data?.accessToken);
-        localStorage.removeItem("refreshToken", res?.data?.refreshToken);
-        navigate("/#");
-      }
-    });
+      });
+    } catch (err) {
+      console.warn("Logout API failed, logging out locally");
+    }
+
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+
+    context.setIsLogin(false);
+    context.setUserData(null);
+
+    navigate("/#", { replace: true });
   };
+
   return (
     <header>
       <div className="top-strip py-2 border-t-[1px] border-green-200 border-b-[1px]">
