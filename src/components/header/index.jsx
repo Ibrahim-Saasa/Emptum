@@ -134,8 +134,16 @@ const Header = () => {
                     className="!text-[#0c8563] myAccount flex items-center gap-3 cursor-pointer"
                     onClick={handleClick}
                   >
-                    <Button className="!w-[40px] !h-[40px] !min-w-[40px] !rounded-full ">
-                      <MdAccountCircle className="!text-[40px] text-[#0c8563]" />
+                    <Button className="!w-[40px] !h-[40px] !min-w-[40px] !rounded-full overflow-hidden">
+                      {context?.userData?.avatar ? (
+                        <img
+                          src={context.userData.avatar}
+                          alt="Profile"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <MdAccountCircle className="!text-[40px] text-[#0c8563]" />
+                      )}
                     </Button>
                     <div className="info flex flex-col">
                       <h4 className="leading-3 text-[14px] font-[500] capitalize text-left justify-start text-[#000]">

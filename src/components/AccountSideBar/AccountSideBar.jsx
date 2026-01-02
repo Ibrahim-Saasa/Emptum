@@ -6,15 +6,15 @@ import { FaRegHeart } from "react-icons/fa6";
 import { FaShoppingBag } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-
 import "react-country-state-city/dist/react-country-state-city.css";
 import { MyContext } from "../../App";
 import { editData, uploadFile } from "../../utils/api.js";
 
 const AccountSideBar = () => {
+  const navigate = useNavigate();
   const [previews, setPreviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -47,15 +47,10 @@ const AccountSideBar = () => {
 
     try {
       const formData = new FormData();
+      formData.append("avatar", files[0]); // Only send first file
 
-      // ✅ Append files correctly (backend expects 'avatar')
-      for (let i = 0; i < files.length; i++) {
-        formData.append("avatar", files[i]);
-      }
+      console.log("Uploading file...");
 
-      console.log("Uploading files...");
-
-      // ✅ Use uploadFile instead of editData
       const res = await uploadFile("/api/users/userProfile", formData);
 
       console.log("Upload response:", res);
@@ -65,8 +60,12 @@ const AccountSideBar = () => {
           "success",
           "Profile picture updated successfully!"
         );
-        // Update user data in context if you have it
-        // context.setUserData({ ...context.userData, avatar: res.profileImage });
+
+        // ✅ Update user data in context with new avatar
+        context.setUserData({
+          ...context.userData,
+          avatar: res.profileImage,
+        });
       } else {
         context.openAlertBox("error", res.message || "Upload failed");
       }
@@ -77,6 +76,25 @@ const AccountSideBar = () => {
       setIsLoading(false);
       setOpen(false);
     }
+  };
+  const logout = async () => {
+    setAnchorEl(null);
+
+    try {
+      await fetchDataFromApi("/api/users/logout", {
+        withCredentials: true,
+      });
+    } catch (err) {
+      console.warn("Logout API failed, logging out locally");
+    }
+
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+
+    context.setIsLogin(false);
+    context.setUserData(null);
+
+    navigate("/#", { replace: true });
   };
 
   return (
@@ -94,22 +112,32 @@ const AccountSideBar = () => {
 
       <div className="w-full !p-3 flex items-center justify-center flex-col">
         <div className="w-[100px] h-[100px] rounded-full overflow-hidden !mb-4 relative group">
-          <MdAccountCircle className="!w-full !h-full text-[#0c8563]" />
+          {context?.userData?.avatar ? (
+            // ✅ Show uploaded avatar if it exists
+            <img
+              src={context.userData.avatar}
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            // ✅ Show default icon if no avatar
+            <MdAccountCircle className="!w-full !h-full text-[#0c8563]" />
+          )}
 
           <div className="overlay w-[100%] h-[100%] absolute top-0 left-0 z-50 bg-[rgba(0,0,0,0.6)] flex items-center justify-center cursor-pointer opacity-0 transition-all group-hover:opacity-100">
             <LuUpload className="text-[#fff0f5] text-[30px]" />
             <input
               type="file"
               className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-              onChange={(e) => onChangeFile(e, "/api/users/userProfile")}
+              onChange={(e) => onChangeFile(e)}
               name="avatar"
               accept="image/*"
             />
           </div>
         </div>
-        <h3>{context?.userData?.name || "Ibrahim Saasa"}</h3>
+        <h3>{context?.userData?.name}</h3>
         <h6 className="text-[13px] text-gray-700">
-          {context?.userData?.email || "ibrahimsaasa@gmail.com"}
+          {context?.userData?.email}
         </h6>
       </div>
 
@@ -141,12 +169,13 @@ const AccountSideBar = () => {
           </NavLink>
         </li>
         <li className="w-full">
-          <NavLink to="/logout" exact={true} activeClassName="isActive">
-            <Button className="flex items-center gap-2 w-full !text-[#000] !capitalize !text-left !px-5 !justify-start hover:!text-[#0c8563]">
-              <IoLogOutOutline className="text-[25px]" />
-              Logout
-            </Button>
-          </NavLink>
+          <Button
+            onClick={logout}
+            className="flex items-center gap-2 w-full !text-[#000] !capitalize !text-left !px-5 !justify-start hover:!text-[#0c8563]"
+          >
+            <IoLogOutOutline className="text-[25px]" />
+            Logout
+          </Button>
         </li>
       </ul>
     </div>
