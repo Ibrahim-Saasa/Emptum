@@ -26,6 +26,7 @@ import MyAccount from "./Pages/myAccount/MyAccount.jsx";
 import MyList from "./Pages/myList/index.jsx";
 import MyOrders from "./Pages/myOrders/MyOrders.jsx";
 import { fetchDataFromApi } from "./utils/api.js";
+import Address from "./Pages/myAccount/Address.jsx";
 
 const MyContext = createContext();
 
@@ -59,7 +60,7 @@ function App() {
   const handleMaxWidthChange = (event) => {
     setMaxWidth(
       // @ts-expect-error autofill of arbitrary value is not handled.
-      event.target.value
+      event.target.value,
     );
   };
 
@@ -128,6 +129,7 @@ function App() {
               <Route path={"/my-account"} element={<MyAccount />} />
               <Route path={"/my-list"} element={<MyList />} />
               <Route path={"/my-orders"} element={<MyOrders />} />
+              <Route path={"/address"} element={<Address />} />
             </Routes>
           </main>
           <Footer classname="ads" />

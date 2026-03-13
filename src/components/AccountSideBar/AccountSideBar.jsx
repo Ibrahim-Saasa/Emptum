@@ -12,6 +12,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import "react-country-state-city/dist/react-country-state-city.css";
 import { MyContext } from "../../App";
 import { editData, uploadFile } from "../../utils/api.js";
+import { PiAddressBookLight } from "react-icons/pi";
 
 const AccountSideBar = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const AccountSideBar = () => {
       if (!validTypes.includes(file.type)) {
         context.openAlertBox(
           "error",
-          "Only PNG, JPG, JPEG, or WEBP images are allowed"
+          "Only PNG, JPG, JPEG, or WEBP images are allowed",
         );
         return;
       }
@@ -58,7 +59,7 @@ const AccountSideBar = () => {
       if (res.success) {
         context.openAlertBox(
           "success",
-          "Profile picture updated successfully!"
+          "Profile picture updated successfully!",
         );
 
         // ✅ Update user data in context with new avatar
@@ -149,6 +150,14 @@ const AccountSideBar = () => {
             <Button className="flex items-center gap-2 w-full !text-[#000] !capitalize !text-left !px-5 !justify-start hover:!text-[#0c8563]">
               <FaRegUserCircle className="text-[20px]" />
               User Profile
+            </Button>
+          </NavLink>
+        </li>
+        <li className="w-full">
+          <NavLink to="/address" exact={true} activeClassName="isActive">
+            <Button className="flex items-center gap-2 w-full !text-[#000] !capitalize !text-left !px-5 !justify-start hover:!text-[#0c8563]">
+              <PiAddressBookLight className="text-[25px]" />
+              Address
             </Button>
           </NavLink>
         </li>
