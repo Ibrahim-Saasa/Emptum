@@ -1,63 +1,36 @@
 import React, { useContext, useEffect, useState } from "react";
-import AccountSideBar from "../../components/AccountSideBar/AccountSideBar";
-import {
-  Divider,
-  TextField,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Button, Divider, TextField } from "@mui/material";
 import PhoneInput from "react-phone-input-2";
-import { CountrySelect } from "react-country-state-city";
 import "react-country-state-city/dist/react-country-state-city.css";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../App";
 import { editData } from "../../utils/api";
-import dayjs from "dayjs";
+import AccountSideBar from "../../components/AccountSideBar/AccountSideBar";
+import LocationPinMap from "../../components/LocationPinMap/LocationPinMap";
+import {
+  createEmptyAddress,
+  getAddressFromUserData,
+  getAddressPayload,
+} from "../../utils/address";
 
 const Address = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [formFields, setFormFields] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    dateOfBirth: null,
-    gender: "",
-    nationality: null,
-    address: "",
-  });
+  const [formFields, setFormFields] = useState(createEmptyAddress());
 
   const navigate = useNavigate();
   const context = useContext(MyContext);
 
-  // Load user data when component mounts
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
+
     if (!token) {
       navigate("/");
       return;
     }
 
-    // Populate form with existing user data
-    if (context.userData) {
-      setFormFields({
-        name: context.userData.name || "",
-        email: context.userData.email || "",
-        phone: context.userData.phone || "",
-        dateOfBirth: context.userData.dateOfBirth
-          ? dayjs(context.userData.dateOfBirth)
-          : null,
-        gender: context.userData.gender || "",
-        nationality: context.userData.nationality || null,
-        address: context.userData.address || "",
-      });
-    }
+    setFormFields(getAddressFromUserData(context.userData));
   }, [context.userData, navigate]);
+
   const handleChange = (field, value) => {
     setFormFields((prev) => ({
       ...prev,
@@ -65,43 +38,45 @@ const Address = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleLocationChange = (location) => {
+    setFormFields((prev) => ({
+      ...prev,
+      location,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setIsLoading(true);
 
     try {
       const updateData = {
-        name: formFields.name,
-        email: formFields.email,
         phone: formFields.phone,
-        dateOfBirth: formFields.dateOfBirth
-          ? formFields.dateOfBirth.toISOString()
-          : null,
-        gender: formFields.gender,
-        nationality: formFields.nationality?.name || formFields.nationality,
-        address: formFields.address,
+        email: formFields.email,
+        ...getAddressPayload(formFields),
       };
 
-      const response = await editData(
-        "/api/users/updateUserDetails",
-        updateData,
-      );
+      const response = await editData("/api/users/updateUserDetails", updateData);
 
       if (response.success) {
-        context.openAlertBox("success", "Profile updated successfully!");
+        const updatedUser = response.data || {
+          ...context.userData,
+          ...updateData,
+        };
 
-        // Update context with new user data
-        context.setUserData(response.data);
+        context.openAlertBox("success", "Address updated successfully!");
+        context.setUserData(updatedUser);
       } else {
         context.openAlertBox("error", response.message || "Update failed");
       }
     } catch (error) {
-      console.error("Update error:", error);
-      context.openAlertBox("error", "Failed to update profile");
+      console.error("Address update error:", error);
+      context.openAlertBox("error", "Failed to update address");
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <section className="!py-10 w-full">
       <div className="container flex gap-5">
@@ -109,15 +84,37 @@ const Address = () => {
           <AccountSideBar />
         </div>
         <div className="col2 w-[75%]">
-          <div className="card bg-[#fff0f5] shadow-[0_0_15px_rgba(0,0,0,0.3)] rounded-md !p-5 !mb-5">
+          <div className="card rounded-md bg-[#fff0f5] !p-5 !mb-5 shadow-[0_0_15px_rgba(0,0,0,0.3)]">
             <div className="flex items-center !pb-3">
-              <h2 className="!pb-0">Address</h2>
+              <h2 className="!pb-0">Address Book</h2>
             </div>
 
             <Divider className="divider" />
-            <form className="!mt-5" onSubmit={handleSubmit}>
-              <div className="flex items-center gap-5 !mt-5">
-                <div className="w-[50%]">
+
+            <form className="!mt-5 space-y-5" onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <TextField
+                  label="Full Name"
+                  variant="filled"
+                  size="small"
+                  className="w-full"
+                  value={formFields.fullName}
+                  onChange={(event) =>
+                    handleChange("fullName", event.target.value)
+                  }
+                />
+                <TextField
+                  label="Email"
+                  variant="filled"
+                  size="small"
+                  className="w-full"
+                  value={formFields.email}
+                  onChange={(event) => handleChange("email", event.target.value)}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div>
                   <PhoneInput
                     country={null}
                     value={formFields.phone}
@@ -137,37 +134,95 @@ const Address = () => {
                     }}
                   />
                 </div>
-                <div className="w-[50%] nation">
-                  <CountrySelect
-                    placeHolder="Select Country"
-                    value={formFields.nationality}
-                    onChange={(country) => handleChange("nationality", country)}
-                    inputClassName="w-full custom-country-input"
-                  />
-                </div>
+                <TextField
+                  label="Country"
+                  variant="filled"
+                  size="small"
+                  className="w-full"
+                  value={formFields.country}
+                  onChange={(event) =>
+                    handleChange("country", event.target.value)
+                  }
+                />
               </div>
 
-              <div className="flex items-center gap-5 !mt-5">
-                <div className="w-[50%]">
-                  <TextField
-                    label="Address"
-                    variant="filled"
-                    size="small"
-                    className="w-full"
-                    value={formFields.address}
-                    onChange={(e) => handleChange("address", e.target.value)}
-                  />
-                </div>
-                <div className="w-[50%]">
-                  <Button
-                    type="submit"
-                    className="form-btn btn-border w-full !h-[45px]"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? "Saving..." : "Save"}
-                  </Button>
-                </div>
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <TextField
+                  label="State / Province"
+                  variant="filled"
+                  size="small"
+                  className="w-full"
+                  value={formFields.state}
+                  onChange={(event) => handleChange("state", event.target.value)}
+                />
+                <TextField
+                  label="Town / City"
+                  variant="filled"
+                  size="small"
+                  className="w-full"
+                  value={formFields.city}
+                  onChange={(event) => handleChange("city", event.target.value)}
+                />
               </div>
+
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <TextField
+                  label="House No. & Street"
+                  variant="filled"
+                  size="small"
+                  className="w-full"
+                  value={formFields.street}
+                  onChange={(event) =>
+                    handleChange("street", event.target.value)
+                  }
+                />
+                <TextField
+                  label="Apartment / Suite"
+                  variant="filled"
+                  size="small"
+                  className="w-full"
+                  value={formFields.apartment}
+                  onChange={(event) =>
+                    handleChange("apartment", event.target.value)
+                  }
+                />
+              </div>
+
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <TextField
+                  label="Postal Code"
+                  variant="filled"
+                  size="small"
+                  className="w-full"
+                  value={formFields.postalCode}
+                  onChange={(event) =>
+                    handleChange("postalCode", event.target.value)
+                  }
+                />
+                <TextField
+                  label="Delivery Notes"
+                  variant="filled"
+                  size="small"
+                  className="w-full"
+                  value={formFields.notes}
+                  onChange={(event) => handleChange("notes", event.target.value)}
+                />
+              </div>
+
+              <LocationPinMap
+                value={formFields.location}
+                onChange={handleLocationChange}
+                title="Delivery pin"
+                description="Drop a pin so the courier can find the exact spot."
+              />
+
+              <Button
+                type="submit"
+                className="form-btn btn-border !h-[45px] w-full md:w-[240px]"
+                disabled={isLoading}
+              >
+                {isLoading ? "Saving..." : "Save Address"}
+              </Button>
             </form>
           </div>
         </div>

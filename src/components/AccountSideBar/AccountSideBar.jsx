@@ -11,19 +11,15 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import "react-country-state-city/dist/react-country-state-city.css";
 import { MyContext } from "../../App";
-import { editData, uploadFile } from "../../utils/api.js";
+import { fetchDataFromApi, uploadFile } from "../../utils/api.js";
 import { PiAddressBookLight } from "react-icons/pi";
 
 const AccountSideBar = () => {
   const navigate = useNavigate();
-  const [previews, setPreviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const context = useContext(MyContext);
-  let img_arr = [];
-  let uniqueArray = [];
-  let selectedImages = [];
+
   const onChangeFile = async (e) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -79,8 +75,6 @@ const AccountSideBar = () => {
     }
   };
   const logout = async () => {
-    setAnchorEl(null);
-
     try {
       await fetchDataFromApi("/api/users/logout", {
         withCredentials: true,
